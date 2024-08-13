@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://60lg0vv3y0tq"]
+
+[ext_resource type="PackedScene" uid="uid://bi8q20ceboln0" path="res://scenes/player.tscn" id="1_tfgwr"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ywo6x"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_vdsuk"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -234)
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Ground"]
+color = Color(0.20871, 0.20871, 0.20871, 1)
+polygon = PackedVector2Array(-1000, 0, 1000, 0, 1000, 200, -1000, 200)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape2D_ywo6x")
+
+[node name="Background" type="StaticBody2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Background"]
+color = Color(0.099986, 0.099986, 0.099986, 1)
+polygon = PackedVector2Array(-1000, -1000, -1000, 0, 1000, 0, 1000, -1000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background"]
+position = Vector2(0, -892)
+shape = SubResource("SegmentShape2D_vdsuk")
+
+[node name="Player" parent="." instance=ExtResource("1_tfgwr")]
