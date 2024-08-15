@@ -1,0 +1,120 @@
+[gd_scene load_steps=9 format=3 uid="uid://b70knawr7x6jm"]
+
+[ext_resource type="Script" path="res://scripts/enemy_scripts/mörk.gd" id="1_wxl1o"]
+[ext_resource type="Texture2D" uid="uid://dja2tc8vem22p" path="res://assets/sprites/enemies/mÖRK.png" id="2_6gsac"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i0sfk"]
+radius = 56.0
+height = 190.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c00lb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6gsac")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8lsw"]
+size = Vector2(834, 185)
+
+[sub_resource type="Animation" id="Animation_u3e3v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6wlw0"]
+resource_name = "hurt"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mdbed"]
+_data = {
+"RESET": SubResource("Animation_u3e3v"),
+"hurt": SubResource("Animation_6wlw0")
+}
+
+[node name="Mörk" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 2
+script = ExtResource("1_wxl1o")
+normal_speed = 100
+run_speed = 530
+health = 5
+max_health = 5
+damage = 1
+
+[node name="EnvironmentCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -95)
+shape = SubResource("CapsuleShape2D_i0sfk")
+
+[node name="Graphics" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -150)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_c00lb")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(0, -118.5)
+shape = SubResource("RectangleShape2D_c8lsw")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="HitBoxArea" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, -95)
+shape = SubResource("CapsuleShape2D_i0sfk")
+
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="GroundDetect" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-112, 0)
+
+[node name="WallDetect" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-112, -95)
+target_position = Vector2(-50, 0)
+
+[node name="CloudSpawn" type="Node2D" parent="Raycasts"]
+position = Vector2(60, 0)
+
+[node name="CloudTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[node name="HurtAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mdbed")
+}
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="body_exited" from="HitBox" to="." method="_on_hit_box_body_exited"]
