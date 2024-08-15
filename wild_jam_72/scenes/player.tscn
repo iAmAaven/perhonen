@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://bi8q20ceboln0"]
+[gd_scene load_steps=26 format=3 uid="uid://bi8q20ceboln0"]
 
 [ext_resource type="Texture2D" uid="uid://bqllxh336mhum" path="res://assets/sprites/pelaaja_idle_R.png" id="1_14u4u"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_icd3r"]
 [ext_resource type="Texture2D" uid="uid://tyhyy63paw0d" path="res://assets/sprites/pelaaja_idle_L.png" id="2_1p0ej"]
+[ext_resource type="Texture2D" uid="uid://du2tjf8e4d365" path="res://assets/sprites/pelaaja_run_L.png" id="4_l6kv0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8rvb3"]
 radius = 17.0
@@ -48,6 +49,14 @@ region = Rect2(3000, 0, 1000, 1000)
 atlas = ExtResource("1_14u4u")
 region = Rect2(4000, 0, 1000, 1000)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2eot"]
+atlas = ExtResource("4_l6kv0")
+region = Rect2(0, 0, 1000, 1000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fb24h"]
+atlas = ExtResource("4_l6kv0")
+region = Rect2(1000, 0, 1000, 1000)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_t56gy"]
 animations = [{
 "frames": [{
@@ -89,13 +98,87 @@ animations = [{
 "loop": true,
 "name": &"idle_R",
 "speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2eot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fb24h")
+}],
+"loop": true,
+"name": &"run_L",
+"speed": 6.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_costd"]
-size = Vector2(138, 84)
+size = Vector2(151, 84)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g30ad"]
+size = Vector2(80, 113)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vrp0d"]
+size = Vector2(80, 115)
+
+[sub_resource type="Animation" id="Animation_depvb"]
+resource_name = "normal"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_34ftj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cysa2"]
+resource_name = "hurt"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3cfpp"]
+_data = {
+"RESET": SubResource("Animation_34ftj"),
+"hurt": SubResource("Animation_cysa2"),
+"normal": SubResource("Animation_depvb")
+}
 
 [node name="Player" type="CharacterBody2D" groups=["Persist", "Player"]]
 z_index = 5
+collision_layer = 4
 script = ExtResource("1_icd3r")
 move_speed = 500.0
 
@@ -107,14 +190,50 @@ shape = SubResource("CapsuleShape2D_8rvb3")
 position = Vector2(0, -75)
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_t56gy")
-animation = &"idle_R"
+animation = &"run_L"
 autoplay = "idle_R"
+frame = 1
+frame_progress = 0.966177
 
 [node name="AttackArea" type="Area2D" parent="."]
 position = Vector2(0, -55)
+collision_layer = 0
+collision_mask = 2
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
-position = Vector2(65, 0)
+position = Vector2(71.5, 0)
 shape = SubResource("RectangleShape2D_costd")
 
+[node name="DownAttackArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DownAttackArea"]
+position = Vector2(0, 18.5)
+shape = SubResource("RectangleShape2D_g30ad")
+
+[node name="UpAttackArea" type="Area2D" parent="."]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpAttackArea"]
+position = Vector2(0, -137.5)
+shape = SubResource("RectangleShape2D_vrp0d")
+
+[node name="GroundDetect" type="RayCast2D" parent="."]
+target_position = Vector2(0, 20)
+
+[node name="GhostJumpTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="HurtAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3cfpp")
+}
+autoplay = "normal"
+
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_entered" from="DownAttackArea" to="." method="_on_down_attack_area_body_entered"]
+[connection signal="body_entered" from="UpAttackArea" to="." method="_on_up_attack_area_body_entered"]
