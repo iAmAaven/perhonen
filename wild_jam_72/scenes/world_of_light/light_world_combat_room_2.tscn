@@ -1,12 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://colrtd2ndt3wn"]
+[gd_scene load_steps=14 format=3 uid="uid://colrtd2ndt3wn"]
 
 [ext_resource type="PackedScene" uid="uid://bi8q20ceboln0" path="res://scenes/player.tscn" id="1_hd0ik"]
 [ext_resource type="Texture2D" uid="uid://cyrsemawwswb0" path="res://assets/sprites/environment/brainRock1.png" id="2_g3q6x"]
+[ext_resource type="Texture2D" uid="uid://cc6hm76cuoo62" path="res://assets/sprites/environment/brainRockShape.png" id="3_c3ced"]
 [ext_resource type="Texture2D" uid="uid://qo0tfb40wh0g" path="res://assets/sprites/backgrounds/grayBG_1.png" id="3_puky6"]
-[ext_resource type="Texture2D" uid="uid://c104ixksk0fv8" path="res://assets/sprites/backgrounds/background_shadow.png" id="4_hmfsr"]
 [ext_resource type="PackedScene" uid="uid://c4cnoyqccbl71" path="res://scenes/brain_platform.tscn" id="5_anihu"]
 [ext_resource type="PackedScene" uid="uid://dsweujbxi4ljn" path="res://scenes/change_scene_trigger.tscn" id="6_x68hp"]
 [ext_resource type="Script" path="res://scripts/door_manager.gd" id="7_k768p"]
+[ext_resource type="PackedScene" uid="uid://cbpfgadtmxn4m" path="res://scenes/dangers/pool_of_sorrow.tscn" id="8_puqm4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_txybl"]
 size = Vector2(56, 536)
@@ -35,7 +36,7 @@ corner_radius_bottom_left = 20
 metadata/_edit_horizontal_guides_ = [-1448.0]
 
 [node name="Player" parent="." instance=ExtResource("1_hd0ik")]
-position = Vector2(-1043, -7)
+position = Vector2(-488, -290)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -55)
@@ -62,7 +63,7 @@ position = Vector2(210, 0)
 scale = Vector2(1.25, 1)
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ground"]
-color = Color(0, 0, 0, 1)
+color = Color(0.294118, 0.294118, 0.294118, 1)
 polygon = PackedVector2Array(-1200, 0, 1200, 0, 1200, 200, -1200, 200)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground"]
@@ -74,7 +75,7 @@ position = Vector2(-476, -281)
 scale = Vector2(0.69, 0.2)
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ground2"]
-color = Color(0, 0, 0, 1)
+color = Color(0.294118, 0.294118, 0.294118, 1)
 polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100, -100, -62.9506)
 metadata/_edit_lock_ = true
 
@@ -88,7 +89,7 @@ position = Vector2(793, 30)
 scale = Vector2(12.5, 0.2)
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ground3"]
-color = Color(0, 0, 0, 1)
+color = Color(0.294118, 0.294118, 0.294118, 1)
 polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 metadata/_edit_lock_ = true
 
@@ -102,7 +103,7 @@ position = Vector2(1781, -250)
 scale = Vector2(1.49, 0.2)
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ground4"]
-color = Color(0, 0, 0, 1)
+color = Color(0.294118, 0.294118, 0.294118, 1)
 polygon = PackedVector2Array(-100, -100, 100, -100, 100, 100, -100, 100)
 metadata/_edit_lock_ = true
 
@@ -115,7 +116,7 @@ metadata/_edit_lock_ = true
 z_index = 6
 
 [node name="BrainRock" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-919, 63)
 rotation = 0.0351557
 scale = Vector2(3, 1)
@@ -123,11 +124,11 @@ scale = Vector2(3, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock2" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-517, 56)
 rotation = 0.0351557
 scale = Vector2(2, 1)
@@ -135,10 +136,10 @@ scale = Vector2(2, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock2"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 
 [node name="BrainRock3" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(873, 69)
 rotation = 0.0351557
 scale = Vector2(3, 1)
@@ -146,10 +147,10 @@ scale = Vector2(3, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock3"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 
 [node name="BrainRock4" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(13, 69)
 rotation = -0.0307042
 scale = Vector2(3, 1)
@@ -157,12 +158,12 @@ scale = Vector2(3, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock4"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock5" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(439, 72)
 rotation = -0.0307042
 scale = Vector2(2, 1)
@@ -170,12 +171,12 @@ scale = Vector2(2, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock5"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock6" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(1446, 74)
 rotation = 0.0351557
 scale = Vector2(3, 1)
@@ -183,13 +184,13 @@ scale = Vector2(3, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock6"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 
 [node name="Ceiling" type="StaticBody2D" parent="Environment"]
 z_index = 6
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ceiling"]
-color = Color(0, 0, 0, 1)
+color = Color(0.294118, 0.294118, 0.294118, 1)
 polygon = PackedVector2Array(-1220, -1500, 2799, -1499, 2798, 195, -545, 190, -545, -292, -407, -292, -358, 38, 1632, 38, 1632, -260, 1856, -260, 1856, -449, 1738, -448, 1669, -458, 1501, -593, 1345, -642, 966, -643, 673, -614, 593, -560, 537, -468, 474, -439, 400, -553, 329, -613, 198, -639, -157, -637, -317, -598, -374, -569, -455, -504, -557, -511, -606, -538, -632, -586, -672, -1426, -819, -1426, -841, -860, -871, -546, -901, -389, -935, -301, -956, -247, -1022, -192, -1090, -174, -1188, -164, -1191, 165, -1218, 172)
 metadata/_edit_lock_ = true
 
@@ -201,7 +202,7 @@ metadata/_edit_lock_ = true
 z_index = 6
 
 [node name="BrainRock" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-1140, -255)
 rotation = 3.11794
 scale = Vector2(1.5, 1.5)
@@ -209,11 +210,11 @@ scale = Vector2(1.5, 1.5)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock2" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-1002, -454)
 rotation = 1.94375
 scale = Vector2(2, 2)
@@ -221,11 +222,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock2"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock3" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-943, -827)
 rotation = 1.69416
 scale = Vector2(2, 2)
@@ -233,11 +234,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock3"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock4" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-921, -1210)
 rotation = 1.70168
 scale = Vector2(2, 2)
@@ -245,11 +246,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock4"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock5" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-556, -1224)
 rotation = 4.67326
 scale = Vector2(2, 2)
@@ -257,11 +258,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock5"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock6" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-530, -953)
 rotation = 4.44518
 scale = Vector2(2, 2)
@@ -269,12 +270,12 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock6"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock7" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-538, -738)
 rotation = -1.838
 scale = Vector2(2, 2)
@@ -282,12 +283,12 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock7"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock8" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-393, -682)
 rotation = 2.66159
 scale = Vector2(2, 2)
@@ -295,11 +296,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock8"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock9" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-225, -742)
 rotation = 2.85222
 scale = Vector2(2, 2)
@@ -307,11 +308,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock9"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock10" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-22, -752)
 rotation = 2.99441
 scale = Vector2(2, 2)
@@ -319,12 +320,12 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock10"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock11" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(283, -740)
 rotation = 3.11231
 scale = Vector2(2, 2)
@@ -332,12 +333,12 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock11"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock12" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(434, -655)
 rotation = 4.22467
 scale = Vector2(2, 2)
@@ -345,11 +346,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock12"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock13" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(489, -675)
 rotation = 1.37767
 scale = Vector2(2, 2)
@@ -357,12 +358,12 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock13"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock14" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(679, -741)
 rotation = 2.46747
 scale = Vector2(2, 2)
@@ -370,12 +371,12 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock14"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock15" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(872, -748)
 rotation = 2.80931
 scale = Vector2(2, 2)
@@ -383,12 +384,12 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock15"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock16" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(1184, -742)
 rotation = 3.22811
 scale = Vector2(2, 2)
@@ -396,11 +397,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock16"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock17" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(1459, -717)
 rotation = 3.43913
 scale = Vector2(2, 2)
@@ -408,11 +409,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock17"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock18" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(1744, -574)
 rotation = 3.43913
 scale = Vector2(2, 2)
@@ -420,11 +421,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock18"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock19" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(1996, -276)
 rotation = 4.6435
 scale = Vector2(2, 2)
@@ -432,11 +433,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock19"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock20" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(1834, -157)
 rotation = 6.2904
 scale = Vector2(2, 2)
@@ -444,12 +445,12 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock20"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock21" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(1741, -48)
 rotation = 4.26188
 scale = Vector2(2, 2)
@@ -457,12 +458,12 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock21"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock22" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-403, -44)
 rotation = 7.75114
 scale = Vector2(2, 1)
@@ -470,11 +471,11 @@ scale = Vector2(2, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock22"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock23" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-517, -55)
 rotation = 4.7109
 scale = Vector2(2, 1)
@@ -482,51 +483,51 @@ scale = Vector2(2, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock23"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock24" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-501, -194)
 rotation = 4.73674
 
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock24"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock25" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-484, -189)
 rotation = 7.71802
 
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock25"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock26" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-425, -193)
 rotation = 4.73674
 
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock26"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock27" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-439, -189)
 rotation = 7.97831
 
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock27"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
+texture = ExtResource("3_c3ced")
 metadata/_edit_lock_ = true
 
 [node name="BackgroundParallax" type="ParallaxBackground" parent="Environment"]
@@ -536,27 +537,10 @@ scroll_offset = Vector2(184.312, 479.034)
 [node name="BackgroundColors" type="ParallaxLayer" parent="Environment/BackgroundParallax"]
 
 [node name="GrayBg1" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundColors"]
-modulate = Color(0.252028, 0.252028, 0.252028, 1)
+modulate = Color(0.54902, 0.54902, 0.54902, 1)
 position = Vector2(343, -618)
 scale = Vector2(1.6, 1.5)
 texture = ExtResource("3_puky6")
-
-[node name="BackgroundShadow" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundColors"]
-position = Vector2(326, -219)
-scale = Vector2(1.73, 1.25)
-texture = ExtResource("4_hmfsr")
-
-[node name="BackgroundShadow2" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundColors"]
-position = Vector2(-1.47644e-10, -793)
-rotation = 3.14159
-scale = Vector2(1.25, 1.25)
-texture = ExtResource("4_hmfsr")
-
-[node name="BackgroundShadow3" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundColors"]
-position = Vector2(706, -508)
-rotation = 3.14159
-scale = Vector2(1.25, 1.25)
-texture = ExtResource("4_hmfsr")
 
 [node name="Background2" type="ParallaxLayer" parent="Environment/BackgroundParallax"]
 motion_scale = Vector2(0.9, 1)
@@ -643,39 +627,9 @@ scroll_offset = Vector2(184.312, 479.034)
 [node name="Foreground1" type="ParallaxLayer" parent="Environment/ForegroundParallax"]
 motion_scale = Vector2(1.1, 1)
 
-[node name="BrainRock" type="Node2D" parent="Environment/ForegroundParallax/Foreground1"]
-modulate = Color(0.605274, 0.605274, 0.605274, 1)
-position = Vector2(-270, 20)
-
-[node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/BrainRock"]
-position = Vector2(0, -64)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
-
-[node name="BrainRock2" type="Node2D" parent="Environment/ForegroundParallax/Foreground1"]
-modulate = Color(0.605274, 0.605274, 0.605274, 1)
-position = Vector2(299, 28)
-scale = Vector2(1.25, 1.25)
-
-[node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/BrainRock2"]
-position = Vector2(0, -64)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
-
-[node name="BrainRock3" type="Node2D" parent="Environment/ForegroundParallax/Foreground1"]
-modulate = Color(0.605274, 0.605274, 0.605274, 1)
-position = Vector2(913, 24)
-scale = Vector2(1.1, 1.1)
-
-[node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/BrainRock3"]
-position = Vector2(0, -64)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
-flip_h = true
-
 [node name="BrainRock4" type="Node2D" parent="Environment/ForegroundParallax/Foreground1"]
 modulate = Color(0.605274, 0.605274, 0.605274, 1)
-position = Vector2(-628, 24)
+position = Vector2(-1047, 30)
 scale = Vector2(1.1, 1.1)
 
 [node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/BrainRock4"]
@@ -687,18 +641,9 @@ flip_h = true
 [node name="Foreground2" type="ParallaxLayer" parent="Environment/ForegroundParallax"]
 motion_scale = Vector2(1.2, 1)
 
-[node name="BrainRock" type="Node2D" parent="Environment/ForegroundParallax/Foreground2"]
-modulate = Color(0.796243, 0.796243, 0.796243, 1)
-position = Vector2(-96, 74)
-
-[node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/BrainRock"]
-position = Vector2(0, -64)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
-
 [node name="BrainRock2" type="Node2D" parent="Environment/ForegroundParallax/Foreground2"]
 modulate = Color(0.796243, 0.796243, 0.796243, 1)
-position = Vector2(-773, 95)
+position = Vector2(-862, 104)
 scale = Vector2(1.5, 1.5)
 
 [node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/BrainRock2"]
@@ -706,16 +651,6 @@ position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_g3q6x")
 flip_h = true
-
-[node name="BrainRock3" type="Node2D" parent="Environment/ForegroundParallax/Foreground2"]
-modulate = Color(0.796243, 0.796243, 0.796243, 1)
-position = Vector2(682, 74)
-scale = Vector2(1.25, 1.25)
-
-[node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/BrainRock3"]
-position = Vector2(0, -64)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_g3q6x")
 
 [node name="Foreground3" type="ParallaxLayer" parent="Environment/ForegroundParallax"]
 motion_scale = Vector2(1.3, 1)
@@ -733,14 +668,42 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_g3q6x")
 
 [node name="BrainRock2" type="Node2D" parent="Environment/ForegroundParallax/Foreground4"]
-position = Vector2(556, 166)
-scale = Vector2(1.75, 1.75)
+position = Vector2(141, 166)
+scale = Vector2(2, 2)
 
 [node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground4/BrainRock2"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_g3q6x")
 flip_h = true
+
+[node name="BrainRock3" type="Node2D" parent="Environment/ForegroundParallax/Foreground4"]
+position = Vector2(529, 207)
+scale = Vector2(2, 2)
+
+[node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground4/BrainRock3"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_g3q6x")
+flip_h = true
+
+[node name="BrainRock4" type="Node2D" parent="Environment/ForegroundParallax/Foreground4"]
+position = Vector2(1053, 194)
+scale = Vector2(2, 2)
+
+[node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground4/BrainRock4"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_g3q6x")
+
+[node name="BrainRock5" type="Node2D" parent="Environment/ForegroundParallax/Foreground4"]
+position = Vector2(1672, 194)
+scale = Vector2(2, 2)
+
+[node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground4/BrainRock5"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_g3q6x")
 
 [node name="Platforms" type="Node2D" parent="Environment"]
 
@@ -754,19 +717,19 @@ position = Vector2(-169, -297)
 scale = Vector2(0.5, 0.5)
 
 [node name="BrainPlatform3" parent="Environment/Platforms" instance=ExtResource("5_anihu")]
-position = Vector2(241, -297)
+position = Vector2(170, -297)
 scale = Vector2(0.5, 0.5)
 
 [node name="BrainPlatform4" parent="Environment/Platforms" instance=ExtResource("5_anihu")]
-position = Vector2(943, -297)
+position = Vector2(854, -243)
 scale = Vector2(0.5, 0.5)
 
 [node name="BrainPlatform5" parent="Environment/Platforms" instance=ExtResource("5_anihu")]
-position = Vector2(1352, -179)
+position = Vector2(1260, -166)
 scale = Vector2(0.5, 0.5)
 
 [node name="BrainPlatform6" parent="Environment/Platforms" instance=ExtResource("5_anihu")]
-position = Vector2(574, -112)
+position = Vector2(517, -112)
 scale = Vector2(0.5, 0.5)
 
 [node name="ChangeSceneTrigger" parent="." instance=ExtResource("6_x68hp")]
@@ -780,14 +743,14 @@ door_location = "Left"
 position = Vector2(1857, -266)
 collision_layer = 0
 collision_mask = 4
-scene_to_load = "res://scenes/world_of_light/light_world_combat_room_1.tscn"
-door_location = "Left"
+scene_to_load = "res://scenes/world_of_light/light_world_lore_room_2.tscn"
+door_location = "Right"
 
 [node name="DoorManager" type="Node2D" parent="."]
 script = ExtResource("7_k768p")
 entrance_up = Vector2(-730, -1280)
 entrance_left = Vector2(-1000, 10)
-entrance_right = Vector2(1070, -315)
+entrance_right = Vector2(1750, -265)
 
 [node name="UpEntrance" type="Node2D" parent="DoorManager"]
 position = Vector2(-730, -1280)
@@ -796,7 +759,7 @@ position = Vector2(-730, -1280)
 position = Vector2(-1000, 10)
 
 [node name="RightEntrance" type="Node2D" parent="DoorManager"]
-position = Vector2(1070, -315)
+position = Vector2(1750, -265)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -807,3 +770,63 @@ offset_right = 67.0
 offset_bottom = 66.0
 scale = Vector2(1.75, 1.75)
 theme_override_styles/panel = SubResource("StyleBoxFlat_a3nt3")
+
+[node name="BigPool" type="Node2D" parent="."]
+modulate = Color(0.396889, 0.396889, 0.396889, 1)
+z_index = 5
+position = Vector2(656, 0)
+
+[node name="PoolOfSorrow" parent="BigPool" instance=ExtResource("8_puqm4")]
+position = Vector2(0, 78)
+respawn_point_left = Vector2(-480, -293)
+respawn_point_right = Vector2(1667, -262)
+
+[node name="PoolOfSorrow2" parent="BigPool" instance=ExtResource("8_puqm4")]
+position = Vector2(200, 78)
+respawn_point_left = Vector2(-480, -293)
+respawn_point_right = Vector2(1667, -262)
+
+[node name="PoolOfSorrow3" parent="BigPool" instance=ExtResource("8_puqm4")]
+position = Vector2(-200, 78)
+respawn_point_left = Vector2(-480, -293)
+respawn_point_right = Vector2(1667, -262)
+
+[node name="PoolOfSorrow4" parent="BigPool" instance=ExtResource("8_puqm4")]
+position = Vector2(-400, 78)
+respawn_point_left = Vector2(-480, -293)
+respawn_point_right = Vector2(1667, -262)
+
+[node name="PoolOfSorrow5" parent="BigPool" instance=ExtResource("8_puqm4")]
+position = Vector2(-600, 78)
+respawn_point_left = Vector2(-480, -293)
+respawn_point_right = Vector2(1667, -262)
+
+[node name="PoolOfSorrow6" parent="BigPool" instance=ExtResource("8_puqm4")]
+position = Vector2(400, 78)
+respawn_point_left = Vector2(-480, -293)
+respawn_point_right = Vector2(1667, -262)
+
+[node name="PoolOfSorrow7" parent="BigPool" instance=ExtResource("8_puqm4")]
+position = Vector2(600, 78)
+respawn_point_left = Vector2(-480, -293)
+respawn_point_right = Vector2(1667, -262)
+
+[node name="PoolOfSorrow8" parent="BigPool" instance=ExtResource("8_puqm4")]
+position = Vector2(800, 78)
+respawn_point_left = Vector2(-480, -293)
+respawn_point_right = Vector2(1667, -262)
+
+[node name="PoolOfSorrow9" parent="BigPool" instance=ExtResource("8_puqm4")]
+position = Vector2(1000, 78)
+respawn_point_left = Vector2(-480, -293)
+respawn_point_right = Vector2(1667, -262)
+
+[node name="PoolOfSorrow10" parent="BigPool" instance=ExtResource("8_puqm4")]
+position = Vector2(-800, 78)
+respawn_point_left = Vector2(-480, -293)
+respawn_point_right = Vector2(1667, -262)
+
+[node name="PoolOfSorrow11" parent="BigPool" instance=ExtResource("8_puqm4")]
+position = Vector2(-1000, 78)
+respawn_point_left = Vector2(-480, -293)
+respawn_point_right = Vector2(1667, -262)

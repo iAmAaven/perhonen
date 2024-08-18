@@ -1,0 +1,186 @@
+[gd_scene load_steps=13 format=3 uid="uid://cg0nryo1d1avh"]
+
+[ext_resource type="Script" path="res://scripts/enemy_scripts/itiö.gd" id="1_hthn1"]
+[ext_resource type="Texture2D" uid="uid://vyq8asngy7ud" path="res://assets/sprites/enemies/iTIÖ.png" id="2_tc4we"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qsu6i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tc4we")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7l5o8"]
+radius = 22.0
+height = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h6gdc"]
+radius = 22.0
+height = 48.0
+
+[sub_resource type="Animation" id="Animation_ysglm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qst5d"]
+resource_name = "hurt"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y3mmc"]
+_data = {
+"RESET": SubResource("Animation_ysglm"),
+"hurt": SubResource("Animation_qst5d")
+}
+
+[sub_resource type="Animation" id="Animation_2qv37"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -50)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ur1fk"]
+resource_name = "fly"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -45), Vector2(0, -55), Vector2(0, -45)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HitBox:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -12.75), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cfvgk"]
+_data = {
+"RESET": SubResource("Animation_2qv37"),
+"fly": SubResource("Animation_ur1fk")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s6f7f"]
+radius = 500.0
+
+[node name="iTIÖ" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_hthn1")
+speed = 100
+health = 3
+max_health = 3
+damage = 1
+
+[node name="Graphics" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -50)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_qsu6i")
+
+[node name="EnvironmentCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -45)
+shape = SubResource("CapsuleShape2D_7l5o8")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, -45)
+shape = SubResource("CapsuleShape2D_h6gdc")
+
+[node name="PlayerDetect" type="RayCast2D" parent="."]
+position = Vector2(0, -45)
+target_position = Vector2(0, 200)
+collision_mask = 5
+
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="WallDetect" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-30, -45)
+target_position = Vector2(-25, 0)
+
+[node name="HurtAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y3mmc")
+}
+
+[node name="FlyAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cfvgk")
+}
+autoplay = "fly"
+
+[node name="PlayerInRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerInRange"]
+position = Vector2(0, -45)
+shape = SubResource("CircleShape2D_s6f7f")
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="body_entered" from="PlayerInRange" to="." method="_on_player_in_range_body_entered"]
+[connection signal="body_exited" from="PlayerInRange" to="." method="_on_player_in_range_body_exited"]

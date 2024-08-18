@@ -1,3 +1,5 @@
+class_name Danger
+
 extends Area2D
 
 

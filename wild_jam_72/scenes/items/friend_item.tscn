@@ -1,0 +1,105 @@
+[gd_scene load_steps=9 format=3 uid="uid://bgp5t6slc2sg4"]
+
+[ext_resource type="Script" path="res://scripts/friend_item.gd" id="1_2nqtf"]
+[ext_resource type="Texture2D" uid="uid://qhyn1gdqwn3w" path="res://assets/sprites/friend_1.png" id="1_mv72q"]
+[ext_resource type="Texture2D" uid="uid://bpbw86yrq4tdv" path="res://assets/sprites/friend_2.png" id="2_ac135"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ecrh1"]
+radius = 76.0263
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yk30w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mv72q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ac135")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="Animation" id="Animation_k6gt8"]
+resource_name = "hover"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 20), Vector2(0, -20), Vector2(0, 20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_w0qa7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v7m6h"]
+_data = {
+"RESET": SubResource("Animation_w0qa7"),
+"hover": SubResource("Animation_k6gt8")
+}
+
+[node name="FriendItem" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_2nqtf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ecrh1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_yk30w")
+autoplay = "default"
+
+[node name="HoverAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v7m6h")
+}
+autoplay = "hover"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

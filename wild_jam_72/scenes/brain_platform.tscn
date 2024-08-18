@@ -30,3 +30,4 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 41.5)
 shape = SubResource("RectangleShape2D_t4pda")
+one_way_collision = true
