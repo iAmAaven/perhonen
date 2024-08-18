@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://6h1mtsj4238f"]
+[gd_scene load_steps=14 format=3 uid="uid://6h1mtsj4238f"]
 
+[ext_resource type="Script" path="res://scripts/room.gd" id="1_1dgdu"]
 [ext_resource type="PackedScene" uid="uid://bi8q20ceboln0" path="res://scenes/player.tscn" id="1_q2wh7"]
 [ext_resource type="Texture2D" uid="uid://cc6hm76cuoo62" path="res://assets/sprites/environment/brainRockShape.png" id="2_3f65q"]
 [ext_resource type="Texture2D" uid="uid://qo0tfb40wh0g" path="res://assets/sprites/backgrounds/grayBG_1.png" id="3_1ogx3"]
@@ -9,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d4acbpt17n4kc" path="res://scenes/locked_door.tscn" id="7_r0s2k"]
 [ext_resource type="PackedScene" uid="uid://dj1nqodeewu6d" path="res://scenes/items/key.tscn" id="9_rbrej"]
 [ext_resource type="PackedScene" uid="uid://cg0nryo1d1avh" path="res://scenes/enemies/itiö.tscn" id="10_hn68r"]
+[ext_resource type="PackedScene" uid="uid://dvblnc4jpgg38" path="res://scenes/player_ui.tscn" id="11_atnkl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p6gks"]
 size = Vector2(2000, 190)
@@ -16,7 +18,8 @@ size = Vector2(2000, 190)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4aly"]
 size = Vector2(56, 536)
 
-[node name="LightWorld_PowerupRoom3" type="Node2D"]
+[node name="LightWorld_CombatRoom3" type="Node2D"]
+script = ExtResource("1_1dgdu")
 
 [node name="Player" parent="." instance=ExtResource("1_q2wh7")]
 position = Vector2(-100, 10)
@@ -35,7 +38,7 @@ limit_bottom = 100
 position = Vector2(-1075, 0)
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ground"]
-color = Color(0.294118, 0.294118, 0.294118, 1)
+color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-1000, 0, 1000, 0, 1000, 200, -1000, 200)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground"]
@@ -46,7 +49,7 @@ shape = SubResource("RectangleShape2D_p6gks")
 position = Vector2(1075, 0)
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ground2"]
-color = Color(0.294118, 0.294118, 0.294118, 1)
+color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-1000, 0, 1000, 0, 1000, 200, -1000, 200)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground2"]
@@ -57,7 +60,7 @@ shape = SubResource("RectangleShape2D_p6gks")
 z_index = 6
 
 [node name="BrainRock" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(-198, 61)
 
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock"]
@@ -71,6 +74,7 @@ z_index = 6
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ceiling"]
 modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(25, 0)
+color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-1751, -957, 1160, -954, 1160, 417, -1757, 419, -1756, 21, -100, 22, -100, 334, 50, 333, 50, 21, 1150, 21, 1150, -197, 1002, -238, 901, -247, 696, -228, 367, -201, 230, -209, 122, -274, 19, -297, -123, -279, -176, -235, -268, -223, -468, -221, -461, -309, -327, -309, -287, -452, -341, -629, -407, -688, -1229, -658, -1419, -615, -1531, -567, -1631, -239, -1626, 42, -1756, 40)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Ceiling"]
@@ -81,7 +85,7 @@ polygon = PackedVector2Array(-1607, -238, -1507, -569, -1393, -619, -1207, -660,
 z_index = 6
 
 [node name="BrainRock" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(-1409, -686)
 rotation = 2.76199
 scale = Vector2(1.5, 1.5)
@@ -95,7 +99,7 @@ texture = ExtResource("2_3f65q")
 z_index = -1
 
 [node name="GrayBg1" type="Sprite2D" parent="Environment/BackgroundColors"]
-modulate = Color(0.54902, 0.54902, 0.54902, 1)
+modulate = Color(0.392157, 0.392157, 0.392157, 1)
 position = Vector2(-236, -238)
 scale = Vector2(1.5, 1)
 texture = ExtResource("3_1ogx3")
@@ -160,3 +164,5 @@ position = Vector2(-1444, -407)
 
 [node name="iTIÖ3" parent="." instance=ExtResource("10_hn68r")]
 position = Vector2(-931, -200)
+
+[node name="PlayerUI" parent="." instance=ExtResource("11_atnkl")]

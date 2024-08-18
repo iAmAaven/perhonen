@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://bqdgiv2xtqfoj"]
+[gd_scene load_steps=15 format=3 uid="uid://bqdgiv2xtqfoj"]
 
+[ext_resource type="Script" path="res://scripts/room.gd" id="1_okl5q"]
 [ext_resource type="PackedScene" uid="uid://bi8q20ceboln0" path="res://scenes/player.tscn" id="1_y0o2c"]
 [ext_resource type="Texture2D" uid="uid://cyrsemawwswb0" path="res://assets/sprites/environment/brainRock1.png" id="2_meiah"]
 [ext_resource type="Texture2D" uid="uid://qo0tfb40wh0g" path="res://assets/sprites/backgrounds/grayBG_1.png" id="3_1pxbl"]
@@ -7,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dsweujbxi4ljn" path="res://scenes/change_scene_trigger.tscn" id="5_4xwtc"]
 [ext_resource type="Script" path="res://scripts/door_manager.gd" id="6_nd5i8"]
 [ext_resource type="Texture2D" uid="uid://s8h6psue7y44" path="res://assets/sprites/environment/altar.png" id="7_8e3xs"]
+[ext_resource type="PackedScene" uid="uid://dvblnc4jpgg38" path="res://scenes/player_ui.tscn" id="9_2g2oe"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_17vn7"]
 
@@ -31,6 +33,7 @@ animations = [{
 size = Vector2(374, 6)
 
 [node name="LightWorld_PowerupRoom2" type="Node2D"]
+script = ExtResource("1_okl5q")
 
 [node name="Player" parent="." instance=ExtResource("1_y0o2c")]
 position = Vector2(-500, 10)
@@ -245,3 +248,5 @@ sprite_frames = SubResource("SpriteFrames_6ngdi")
 position = Vector2(0, -40)
 shape = SubResource("RectangleShape2D_dtidm")
 one_way_collision = true
+
+[node name="PlayerUI" parent="." instance=ExtResource("9_2g2oe")]

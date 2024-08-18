@@ -132,7 +132,7 @@ script = ExtResource("1_hthn1")
 speed = 100
 health = 3
 max_health = 3
-damage = 1
+damage = 10
 
 [node name="Graphics" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -50)

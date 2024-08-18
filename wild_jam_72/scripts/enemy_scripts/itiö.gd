@@ -109,4 +109,4 @@ func _on_player_in_range_body_exited(body):
 
 func _on_hit_box_body_entered(body):
 	if body.is_in_group("Player"):
-		body.take_damage(damage)
+		body.take_damage(damage, true)

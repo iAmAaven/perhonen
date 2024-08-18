@@ -28,7 +28,7 @@ func take_damage(damage_to_take):
 
 func death():
 	var random_chance = randf_range(0, 1)
-	if random_chance < 0.2:
+	if random_chance < 0.1:
 		var instance = healing_item.instantiate()
 		if instance != null:
 			instance.global_position = global_position
