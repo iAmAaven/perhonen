@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dxx8in2cccopm"]
+[gd_scene load_steps=40 format=3 uid="uid://dxx8in2cccopm"]
 
 [ext_resource type="Texture2D" uid="uid://7ks5bjjn4g8x" path="res://assets/sprites/cutscenes/opening_scene/openingScene_1.png" id="1_mxo41"]
 [ext_resource type="Script" path="res://scripts/memory.gd" id="1_vo6px"]
@@ -29,6 +29,9 @@
 [ext_resource type="Texture2D" uid="uid://b3ns2e61x5v7r" path="res://assets/sprites/cutscenes/opening_scene/openingScene_26.png" id="26_832ps"]
 [ext_resource type="Texture2D" uid="uid://cap0ec4fv8tlt" path="res://assets/sprites/cutscenes/opening_scene/openingScene_27.png" id="27_oqbt3"]
 [ext_resource type="Texture2D" uid="uid://4dbav4ueiqye" path="res://assets/sprites/openingScene2.png" id="29_yhix0"]
+[ext_resource type="Texture2D" uid="uid://bvqeeipkg7nuh" path="res://assets/sprites/cutscenes/butterfly_scene/butterfly_scene_frame_1.png" id="30_elhwk"]
+[ext_resource type="AudioStream" uid="uid://bobm21k3tvet0" path="res://assets/music/opening_scene_music.wav" id="31_3hrm3"]
+[ext_resource type="FontFile" uid="uid://cy0f0drxriipw" path="res://assets/BLKCHCRY.TTF" id="32_jxipw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_24w2b"]
 animations = [{
@@ -218,7 +221,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -230,12 +233,48 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BlackScreen:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Perhonen/Label:visible_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Perhonen/Label:visible_characters_behavior")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_mgsot"]
 resource_name = "memory"
-length = 20.0
+length = 21.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -267,12 +306,63 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(15),
+"times": PackedFloat32Array(21),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"go_back"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BlackScreen:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5, 1.5, 14.5, 15.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0), Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer2D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("31_3hrm3")
+}],
+"times": PackedFloat32Array(0.3)
+}
+tracks/4/use_blend = true
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Perhonen/Label:visible_ratio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 16, 17, 19, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0, 1.0, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Perhonen/Label:visible_characters_behavior")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 17, 19),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 1, 4]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kty11"]
@@ -281,19 +371,24 @@ _data = {
 "memory": SubResource("Animation_mgsot")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_agvjx"]
+font = ExtResource("32_jxipw")
+font_size = 80
+outline_size = 1
+
 [node name="OpeningScene1" type="Node2D"]
 script = ExtResource("1_vo6px")
-room_to_transition_to = "res://scenes/world_of_light/light_world_lore_room_1.tscn"
-entrance_in_room = "Left"
+room_to_transition_to = "res://scenes/starting_room.tscn"
+entrance_in_room = "Up"
 
 [node name="1stShot" type="AnimatedSprite2D" parent="."]
-visible = false
 position = Vector2(576, 324)
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_24w2b")
 autoplay = "default"
 
 [node name="2ndShot" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(576, 324)
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_506jx")
@@ -309,3 +404,31 @@ libraries = {
 "": SubResource("AnimationLibrary_kty11")
 }
 autoplay = "memory"
+
+[node name="BlackScreen" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(534, 321)
+texture = ExtResource("30_elhwk")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Perhonen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Label" type="Label" parent="Perhonen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Perhonen"
+label_settings = SubResource("LabelSettings_agvjx")
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters = 0
+visible_characters_behavior = 1
+visible_ratio = 0.0

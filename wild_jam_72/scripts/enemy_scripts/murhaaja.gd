@@ -46,18 +46,19 @@ func attack():
 	is_attacking = true
 	can_attack = false
 	velocity.x = 0
+	graphics.play("attack")
 	
 	if get_tree() != null:
 		await get_tree().create_timer(0.75).timeout
 		
 	attack_area.monitoring = true
-	#graphics.play("attack")
 	
 	if get_tree() != null:
 		await get_tree().create_timer(0.25).timeout
 		attack_area.monitoring = false
 	if get_tree() != null:
 		await get_tree().create_timer(0.25).timeout
+		graphics.play("default")
 		is_attacking = false
 	if get_tree() != null:
 		await get_tree().create_timer(0.75).timeout
@@ -77,7 +78,7 @@ func _on_detection_area_body_exited(body):
 func _on_hit_box_body_entered(body):
 	if body.is_in_group("Player"):
 		player_is_inside_enemy = true
-		body.take_damage(damage)
+		body.take_damage(damage, true)
 
 func _on_hit_box_body_exited(body):
 	if body.is_in_group("Player"):
@@ -85,4 +86,4 @@ func _on_hit_box_body_exited(body):
 
 func _on_attack_area_body_entered(body):
 	if body.is_in_group("Player"):
-		body.take_damage(damage)
+		body.take_damage(damage, true)

@@ -24,8 +24,9 @@ func _on_trigger_area_body_exited(body):
 
 
 func remember():
+	Fades.play_animation("fade_in")
 	is_transitioning = true
 	PlayerTracker.health = PlayerTracker.max_health
 	PlayerTracker.last_checkpoint = get_tree().current_scene.scene_file_path
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1).timeout
 	get_tree().change_scene_to_file(memory_name)

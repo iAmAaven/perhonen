@@ -62,7 +62,7 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_2g76e")
 health = 60
 max_health = 60
-damage = 1
+damage = 10
 
 [node name="Graphics" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -260)

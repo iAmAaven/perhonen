@@ -11,5 +11,7 @@ func _ready():
 func _on_body_entered(body):
 	if scene_to_load != null and body.is_in_group("Player"):
 		PlayerTracker.last_door_entered = door_location
-		await get_tree().process_frame
+		PlayerTracker.can_move = false
+		Fades.play_animation("fade_in")
+		await get_tree().create_timer(1).timeout
 		get_tree().change_scene_to_file(scene_to_load)

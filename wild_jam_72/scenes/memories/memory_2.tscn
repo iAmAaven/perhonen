@@ -213,7 +213,7 @@ _data = {
 [node name="Memory2" type="Node2D"]
 script = ExtResource("1_p8an8")
 room_to_transition_to = "res://scenes/world_of_light/light_world_lore_room_2.tscn"
-entrance_in_room = "Left"
+entrance_in_room = "Up"
 
 [node name="1stShot" type="AnimatedSprite2D" parent="."]
 position = Vector2(576, 324)

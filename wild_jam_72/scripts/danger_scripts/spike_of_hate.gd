@@ -22,5 +22,5 @@ func _physics_process(delta):
 
 func _on_hit_collider_body_entered(body):
 	if body.is_in_group("Player") or body.is_in_group("Enemy"):
-		body.take_damage(1)
+		body.take_damage(5, true)
 		queue_free()

@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0x1ex615jj3r"]
+[gd_scene load_steps=11 format=3 uid="uid://c0x1ex615jj3r"]
 
 [ext_resource type="PackedScene" uid="uid://bi8q20ceboln0" path="res://scenes/player.tscn" id="1_643s4"]
+[ext_resource type="Script" path="res://scripts/room.gd" id="1_rw46d"]
 [ext_resource type="Texture2D" uid="uid://cc6hm76cuoo62" path="res://assets/sprites/environment/brainRockShape.png" id="2_hl5cp"]
 [ext_resource type="Texture2D" uid="uid://qo0tfb40wh0g" path="res://assets/sprites/backgrounds/grayBG_1.png" id="3_plo16"]
 [ext_resource type="PackedScene" uid="uid://dsweujbxi4ljn" path="res://scenes/change_scene_trigger.tscn" id="4_wai78"]
 [ext_resource type="Script" path="res://scripts/door_manager.gd" id="5_r87h0"]
 [ext_resource type="PackedScene" uid="uid://fr73onriawhw" path="res://scenes/altars/lore_altar.tscn" id="6_hlgca"]
+[ext_resource type="PackedScene" uid="uid://dvblnc4jpgg38" path="res://scenes/player_ui.tscn" id="8_51wtw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g3yk"]
 size = Vector2(2000, 403)
@@ -13,7 +15,8 @@ size = Vector2(2000, 403)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_372tp"]
 size = Vector2(54, 586)
 
-[node name="LightWorld_LoreRoom1" type="Node2D"]
+[node name="LightWorld_LoreRoom2" type="Node2D"]
+script = ExtResource("1_rw46d")
 
 [node name="Player" parent="." instance=ExtResource("1_643s4")]
 position = Vector2(-504, 10)
@@ -219,3 +222,5 @@ position = Vector2(818, 10)
 [node name="LoreAltar" parent="." instance=ExtResource("6_hlgca")]
 position = Vector2(63, 10)
 memory_name = "res://scenes/memories/memory_1.tscn"
+
+[node name="PlayerUI" parent="." instance=ExtResource("8_51wtw")]

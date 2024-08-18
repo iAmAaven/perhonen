@@ -20,6 +20,7 @@ var getting_knockback = false
 var is_pogo = false
 var direction = 1
 var is_hurting = false
+var is_jumping = false
 var is_dead = false
 
 var knockback_direction: Vector2
@@ -27,15 +28,21 @@ var knockback_direction: Vector2
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var friend = preload("res://scenes/friend.tscn")
+var ui
 
 
 func _ready():
+	ui = get_tree().get_first_node_in_group("UI")
 	attack_area.monitoring = false
+	PlayerTracker.can_move = true
 	await get_tree().create_timer(0.1).timeout
 	spawn_friends()
 
 func _physics_process(delta):
 	if is_dead:
+		return
+	if !PlayerTracker.can_move:
+		velocity.x = 0
 		return
 	
 	handle_movement()
@@ -51,7 +58,7 @@ func handle_movement():
 			if move_direction:
 				velocity.x = move_direction * move_speed
 			else:
-				velocity.x = move_toward(velocity.x, 0, move_speed)
+				velocity.x = move_toward(velocity.x, 0, 60)
 		
 			if move_direction > 0:
 				direction = 1
@@ -59,19 +66,24 @@ func handle_movement():
 			elif move_direction < 0:
 				direction = -1
 				attack_area.scale.x = -1
+		
 		if move_direction < 0:
 			going_right = false
-			graphics.play("run_L")
+			if !is_jumping:
+				graphics.play("run_L")
 		elif move_direction > 0:
-			graphics.play("run_R")
 			going_right = true
+			if !is_jumping:
+				graphics.play("run_R")
 		else:
 			if going_right:
-				graphics.play("idle_R")
+				if !is_jumping:
+					graphics.play("idle_R")
 				if !is_attacking_to_side:
 					attack_area.scale.x = 1
 			else:
-				graphics.play("idle_L")
+				if !is_jumping:
+					graphics.play("idle_L")
 				if !is_attacking_to_side:
 					attack_area.scale.x = -1
 	else:
@@ -83,6 +95,11 @@ func handle_movement():
 
 func handle_jumping(delta):
 	if not is_on_floor():
+		if is_jumping and !is_attacking:
+			if going_right:
+				graphics.play("jump_R")
+			else:
+				graphics.play("jump_L")
 		if jump_cancelled and velocity.y < 0 and !is_pogo:
 			velocity.y += gravity * delta * 6
 		else:
@@ -90,10 +107,16 @@ func handle_jumping(delta):
 			if Input.is_action_just_released("jump") and velocity.y < 0:
 				jump_cancelled = true
 	else:
+		is_jumping = false
 		is_pogo = false
 		jump_cancelled = false
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("jump") and !is_attacking:
+			if going_right and !is_attacking:
+				graphics.play("jump_R")
+			elif !going_right and !is_attacking:
+				graphics.play("jump_L")
 			velocity.y = jump_velocity
+			is_jumping = true
 
 
 func handle_attacking():
@@ -117,6 +140,7 @@ func attack():
 		graphics.play("attack_L")
 	
 	await get_tree().create_timer(0.33).timeout
+	take_damage(1, false)
 	attack_area.set_deferred("monitoring", true)
 	
 	await get_tree().create_timer(0.33).timeout
@@ -129,6 +153,7 @@ func attack():
 
 func attack_down():
 	print("Attacked down")
+	take_damage(1, false)
 	is_attacking = true
 	down_attack_area.set_deferred("monitoring", true)
 	await get_tree().create_timer(0.2).timeout
@@ -137,6 +162,7 @@ func attack_down():
 
 func attack_up():
 	print("Attacked up")
+	take_damage(1, false)
 	is_attacking = true
 	is_attacking_up = true
 	up_attack_area.set_deferred("monitoring", true)
@@ -155,11 +181,13 @@ func knockback(knockback_dir):
 	getting_knockback = false
 
 
-func take_damage(damage_to_take):
-	if !is_hurting:
-		$HurtAnimation.play("hurt")
+func take_damage(damage_to_take, play_anim):
+	if !is_hurting and PlayerTracker.can_move:
+		if play_anim:
+			$HurtAnimation.play("hurt")
 		is_hurting = true
 		PlayerTracker.health -= damage_to_take
+		ui.update_health()
 		print("Player health: " + str(PlayerTracker.health))
 		if PlayerTracker.health <= 0:
 			death()

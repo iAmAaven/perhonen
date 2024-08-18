@@ -1,19 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://dw21cxqavbpp8"]
+[gd_scene load_steps=12 format=3 uid="uid://dw21cxqavbpp8"]
 
 [ext_resource type="PackedScene" uid="uid://bi8q20ceboln0" path="res://scenes/player.tscn" id="1_n575c"]
+[ext_resource type="Script" path="res://scripts/room.gd" id="1_obc52"]
 [ext_resource type="Texture2D" uid="uid://cc6hm76cuoo62" path="res://assets/sprites/environment/brainRockShape.png" id="2_o3f5i"]
 [ext_resource type="Texture2D" uid="uid://qo0tfb40wh0g" path="res://assets/sprites/backgrounds/grayBG_1.png" id="3_2vv70"]
 [ext_resource type="PackedScene" uid="uid://c4cnoyqccbl71" path="res://scenes/brain_platform.tscn" id="5_42ncw"]
 [ext_resource type="PackedScene" uid="uid://dsweujbxi4ljn" path="res://scenes/change_scene_trigger.tscn" id="6_1pfdd"]
 [ext_resource type="Script" path="res://scripts/door_manager.gd" id="7_oo4h3"]
 [ext_resource type="PackedScene" uid="uid://b70knawr7x6jm" path="res://scenes/enemies/mörk.tscn" id="8_ino70"]
+[ext_resource type="PackedScene" uid="uid://dvblnc4jpgg38" path="res://scenes/player_ui.tscn" id="9_0rh0r"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_upekb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4aly"]
 size = Vector2(56, 536)
 
-[node name="LightWorld_PowerupRoom3" type="Node2D"]
+[node name="LightWorld_CombatRoom6" type="Node2D"]
+script = ExtResource("1_obc52")
 
 [node name="Player" parent="." instance=ExtResource("1_n575c")]
 position = Vector2(940, -6)
@@ -32,7 +35,7 @@ limit_bottom = 100
 position = Vector2(-198, 0)
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ground"]
-color = Color(0.392157, 0.392157, 0.392157, 1)
+color = Color(0.196078, 0.196078, 0.196078, 1)
 polygon = PackedVector2Array(-1536, 0, 1582, 0, 1555, 200, -1550, 200)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground"]
@@ -43,7 +46,7 @@ shape = SubResource("WorldBoundaryShape2D_upekb")
 z_index = 6
 
 [node name="BrainRock" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.392157, 0.392157, 0.392157, 1)
+modulate = Color(0.196078, 0.196078, 0.196078, 1)
 position = Vector2(-1512, 48)
 scale = Vector2(2, 1)
 
@@ -53,7 +56,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_o3f5i")
 
 [node name="BrainRock2" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.392157, 0.392157, 0.392157, 1)
+modulate = Color(0.196078, 0.196078, 0.196078, 1)
 position = Vector2(-1128, 56)
 scale = Vector2(2, 1)
 
@@ -63,7 +66,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_o3f5i")
 
 [node name="BrainRock3" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.392157, 0.392157, 0.392157, 1)
+modulate = Color(0.196078, 0.196078, 0.196078, 1)
 position = Vector2(-631, 40)
 scale = Vector2(3, 1)
 
@@ -73,7 +76,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_o3f5i")
 
 [node name="BrainRock4" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.392157, 0.392157, 0.392157, 1)
+modulate = Color(0.196078, 0.196078, 0.196078, 1)
 position = Vector2(840, 52)
 scale = Vector2(3, 1)
 
@@ -83,7 +86,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_o3f5i")
 
 [node name="BrainRock5" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.392157, 0.392157, 0.392157, 1)
+modulate = Color(0.196078, 0.196078, 0.196078, 1)
 position = Vector2(-121, 41)
 scale = Vector2(2, 1)
 
@@ -93,7 +96,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_o3f5i")
 
 [node name="BrainRock6" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.392157, 0.392157, 0.392157, 1)
+modulate = Color(0.196078, 0.196078, 0.196078, 1)
 position = Vector2(514, 44)
 scale = Vector2(2, 1)
 
@@ -103,7 +106,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_o3f5i")
 
 [node name="BrainRock7" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.392157, 0.392157, 0.392157, 1)
+modulate = Color(0.196078, 0.196078, 0.196078, 1)
 position = Vector2(142, 64)
 scale = Vector2(3, 1)
 
@@ -637,3 +640,5 @@ position = Vector2(-185, -482)
 
 [node name="Mörk3" parent="." instance=ExtResource("8_ino70")]
 position = Vector2(21, -723)
+
+[node name="PlayerUI" parent="." instance=ExtResource("9_0rh0r")]

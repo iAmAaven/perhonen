@@ -1,11 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://djdjfuttdv8kg"]
+[gd_scene load_steps=13 format=3 uid="uid://djdjfuttdv8kg"]
 
+[ext_resource type="Script" path="res://scripts/room.gd" id="1_1sogn"]
 [ext_resource type="PackedScene" uid="uid://bi8q20ceboln0" path="res://scenes/player.tscn" id="1_npgly"]
 [ext_resource type="Texture2D" uid="uid://cc6hm76cuoo62" path="res://assets/sprites/environment/brainRockShape.png" id="3_gr3g6"]
 [ext_resource type="Texture2D" uid="uid://qo0tfb40wh0g" path="res://assets/sprites/backgrounds/grayBG_1.png" id="4_wapds"]
 [ext_resource type="PackedScene" uid="uid://fr73onriawhw" path="res://scenes/altars/lore_altar.tscn" id="7_o8ftu"]
 [ext_resource type="PackedScene" uid="uid://dsweujbxi4ljn" path="res://scenes/change_scene_trigger.tscn" id="8_is3oa"]
+[ext_resource type="PackedScene" uid="uid://dvblnc4jpgg38" path="res://scenes/player_ui.tscn" id="8_jm17p"]
 [ext_resource type="Script" path="res://scripts/door_manager.gd" id="9_f11sy"]
+[ext_resource type="PackedScene" uid="uid://dj1nqodeewu6d" path="res://scenes/items/key.tscn" id="9_g1gsb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7g3yk"]
 size = Vector2(2000, 403)
@@ -17,6 +20,7 @@ size = Vector2(2000, 396)
 size = Vector2(54, 586)
 
 [node name="LightWorld_LoreRoom1" type="Node2D"]
+script = ExtResource("1_1sogn")
 
 [node name="Player" parent="." instance=ExtResource("1_npgly")]
 position = Vector2(-100, -10)
@@ -39,7 +43,7 @@ position = Vector2(0, 211.5)
 shape = SubResource("RectangleShape2D_7g3yk")
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ground"]
-color = Color(0.294118, 0.294118, 0.294118, 1)
+color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-1000, 0, 1000, 0, 1000, 200, -1000, 200)
 
 [node name="Ground2" type="StaticBody2D" parent="Environment"]
@@ -50,14 +54,14 @@ position = Vector2(0, 208)
 shape = SubResource("RectangleShape2D_3nfry")
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ground2"]
-color = Color(0.294118, 0.294118, 0.294118, 1)
+color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-1000, 0, 1000, 0, 1000, 200, -1000, 200)
 
 [node name="GroundDetails" type="Node2D" parent="Environment"]
 z_index = 6
 
 [node name="BrainRock" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(-498, 60)
 
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock"]
@@ -66,7 +70,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_gr3g6")
 
 [node name="BrainRock2" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(-233, 57)
 
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock2"]
@@ -75,7 +79,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_gr3g6")
 
 [node name="BrainRock3" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(182, 53)
 
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock3"]
@@ -84,7 +88,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_gr3g6")
 
 [node name="BrainRock4" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(539, 56)
 
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock4"]
@@ -97,7 +101,7 @@ z_index = 6
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ceiling"]
 position = Vector2(25, 0)
-color = Color(0.294118, 0.294118, 0.294118, 1)
+color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-730, -800, 962, -819, 975, 185, 601, 185, 601, -311, 557, -483, 441, -591, 189, -594, 61, -520, -3, -307, -75, -241, -180, -232, -265, -266, -397, -273, -511, -243, -545, -141, -543, 178, -727, 178)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Ceiling"]
@@ -108,7 +112,7 @@ polygon = PackedVector2Array(998, 191, 956, -805, -706, -805, -703, 142, -522, 1
 z_index = 6
 
 [node name="BrainRock" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(-542, -266)
 rotation = 2.76199
 scale = Vector2(1.5, 1.5)
@@ -119,7 +123,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_gr3g6")
 
 [node name="BrainRock2" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(-274, -266)
 rotation = 3.17823
 scale = Vector2(1.5, 1.5)
@@ -130,7 +134,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_gr3g6")
 
 [node name="BrainRock3" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(-23, -350)
 rotation = 2.0959
 
@@ -140,7 +144,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_gr3g6")
 
 [node name="BrainRock4" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(354, -691)
 rotation = 3.47939
 scale = Vector2(2, 2)
@@ -152,7 +156,7 @@ texture = ExtResource("3_gr3g6")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock5" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(636, -499)
 rotation = 4.19736
 scale = Vector2(1.6, 1.6)
@@ -164,7 +168,7 @@ texture = ExtResource("3_gr3g6")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock6" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(103, -594)
 rotation = 3.08411
 
@@ -174,7 +178,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_gr3g6")
 
 [node name="BrainRock7" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0.294118, 0.294118, 0.294118, 1)
+modulate = Color(0, 0, 0, 1)
 position = Vector2(691, -304)
 rotation = 4.82718
 scale = Vector2(1.5, 1.5)
@@ -224,3 +228,9 @@ position = Vector2(352, 10)
 [node name="LoreAltar" parent="." instance=ExtResource("7_o8ftu")]
 position = Vector2(352, 10)
 memory_name = "res://scenes/memories/memory_1.tscn"
+
+[node name="Key" parent="." instance=ExtResource("9_g1gsb")]
+position = Vector2(-378, -65)
+key_name = "TutorialRoom"
+
+[node name="PlayerUI" parent="." instance=ExtResource("8_jm17p")]
