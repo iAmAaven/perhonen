@@ -19,7 +19,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c8lsw"]
-size = Vector2(834, 185)
+size = Vector2(834, 149)
 
 [sub_resource type="Animation" id="Animation_u3e3v"]
 length = 0.001
@@ -64,9 +64,9 @@ collision_layer = 2
 script = ExtResource("1_wxl1o")
 normal_speed = 100
 run_speed = 530
-health = 5
-max_health = 5
-damage = 1
+health = 6
+max_health = 6
+damage = 2
 
 [node name="EnvironmentCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, -95)
@@ -82,7 +82,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-position = Vector2(0, -118.5)
+position = Vector2(0, -100.5)
 shape = SubResource("RectangleShape2D_c8lsw")
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -96,10 +96,10 @@ shape = SubResource("CapsuleShape2D_i0sfk")
 [node name="Raycasts" type="Node2D" parent="."]
 
 [node name="GroundDetect" type="RayCast2D" parent="Raycasts"]
-position = Vector2(-112, 0)
+position = Vector2(-72, 0)
 
 [node name="WallDetect" type="RayCast2D" parent="Raycasts"]
-position = Vector2(-112, -95)
+position = Vector2(-57, -95)
 target_position = Vector2(-50, 0)
 
 [node name="CloudSpawn" type="Node2D" parent="Raycasts"]

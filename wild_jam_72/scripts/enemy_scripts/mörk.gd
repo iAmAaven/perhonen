@@ -18,6 +18,8 @@ var direction: int = -1
 var is_running = false
 var detecting_player = false
 var player_is_inside_enemy = false
+var preparing_run = false
+var stopping_run = false
 
 
 var player: Node2D = null
@@ -31,7 +33,8 @@ func _ready():
 
 func _process(delta):
 	if ground_detect.is_colliding() and !wall_detect.is_colliding():
-		velocity.x = speed * direction
+		if !preparing_run:
+			velocity.x = speed * direction
 	else:
 		velocity.x = 0
 	
@@ -45,13 +48,13 @@ func _process(delta):
 	if is_running:
 		if $CloudTimer.is_stopped():
 			spawn_cloud()
-		
-		if !ground_detect.is_colliding() or wall_detect.is_colliding():
-			stop_running(0)
-		elif direction < 0 and player.position.x > position.x:
-			stop_running(1)
-		elif direction >= 0 and player.position.x <= position.x:
-			stop_running(1)
+		if !stopping_run:
+			if !ground_detect.is_colliding() or wall_detect.is_colliding():
+				stop_running(0)
+			elif direction < 0 and player.position.x > position.x:
+				stop_running(1)
+			elif direction >= 0 and player.position.x <= position.x:
+				stop_running(1)
 	else:
 		if detecting_player and ground_detect.is_colliding():
 			run_towards_player()
@@ -82,17 +85,24 @@ func run_towards_player():
 
 
 func run(dir):
+	preparing_run = true
+	velocity.x = 0
+	await get_tree().create_timer(1).timeout
 	is_running = true
+	preparing_run = false
 	direction = dir
 	speed = run_speed
 
 
 func stop_running(time):
+	stopping_run = true
 	await get_tree().create_timer(time).timeout
 	speed = 0
+	change_direction()
 	await get_tree().create_timer(1).timeout
 	is_running = false
 	speed = normal_speed
+	stopping_run = false
 
 
 func spawn_cloud():

@@ -2,13 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://bi8q20ceboln0" path="res://scenes/player.tscn" id="1_h0sep"]
 [ext_resource type="Texture2D" uid="uid://qo0tfb40wh0g" path="res://assets/sprites/backgrounds/grayBG_1.png" id="2_x0c23"]
-[ext_resource type="Texture2D" uid="uid://c104ixksk0fv8" path="res://assets/sprites/backgrounds/background_shadow.png" id="3_acj5i"]
 [ext_resource type="Texture2D" uid="uid://cyrsemawwswb0" path="res://assets/sprites/environment/brainRock1.png" id="4_44vxg"]
+[ext_resource type="Texture2D" uid="uid://cc6hm76cuoo62" path="res://assets/sprites/environment/brainRockShape.png" id="4_fvcx1"]
 [ext_resource type="PackedScene" uid="uid://c4cnoyqccbl71" path="res://scenes/brain_platform.tscn" id="5_bmxit"]
 [ext_resource type="PackedScene" uid="uid://vy4h2y805b0t" path="res://scenes/door_of_light.tscn" id="6_j1o2y"]
 [ext_resource type="PackedScene" uid="uid://dsweujbxi4ljn" path="res://scenes/change_scene_trigger.tscn" id="7_811v8"]
 [ext_resource type="Script" path="res://scripts/door_manager.gd" id="8_opbi5"]
-[ext_resource type="PackedScene" uid="uid://b70knawr7x6jm" path="res://scenes/enemies/mörk.tscn" id="9_hfit8"]
+[ext_resource type="PackedScene" uid="uid://dpe56usoi8ynv" path="res://scenes/enemies/murhaaja.tscn" id="9_r84u1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4aly"]
 size = Vector2(56, 536)
@@ -46,7 +46,7 @@ shape = SubResource("RectangleShape2D_372tp")
 [node name="Ground" type="StaticBody2D" parent="Environment"]
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ground"]
-color = Color(0, 0, 0, 1)
+color = Color(0.294118, 0.294118, 0.294118, 1)
 polygon = PackedVector2Array(-1200, 0, 1200, 0, 1200, 200, -1200, 200)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground"]
@@ -57,7 +57,7 @@ shape = SubResource("WorldBoundaryShape2D_17vn7")
 z_index = 6
 
 [node name="BrainRock" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-919, 63)
 rotation = 0.0351557
 scale = Vector2(3, 1)
@@ -65,11 +65,11 @@ scale = Vector2(3, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock2" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-517, 56)
 rotation = 0.0351557
 scale = Vector2(2, 1)
@@ -77,10 +77,10 @@ scale = Vector2(2, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock2"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 
 [node name="BrainRock3" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(873, 64)
 rotation = 0.0351557
 scale = Vector2(3, 1)
@@ -88,10 +88,10 @@ scale = Vector2(3, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock3"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 
 [node name="BrainRock4" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(13, 64)
 rotation = -0.0307042
 scale = Vector2(3, 1)
@@ -99,12 +99,12 @@ scale = Vector2(3, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock4"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock5" type="Node2D" parent="Environment/GroundDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(439, 61)
 rotation = -0.0307042
 scale = Vector2(1.5, 1)
@@ -112,8 +112,20 @@ scale = Vector2(1.5, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock5"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 flip_h = true
+metadata/_edit_lock_ = true
+
+[node name="BrainRock6" type="Node2D" parent="Environment/GroundDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(-1070, 276)
+rotation = 0.0351557
+scale = Vector2(3, 3.56545)
+
+[node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock6"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_fvcx1")
 metadata/_edit_lock_ = true
 
 [node name="Ceiling" type="StaticBody2D" parent="Environment"]
@@ -121,7 +133,7 @@ z_index = 6
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/Ceiling"]
 position = Vector2(25, 0)
-color = Color(0, 0, 0, 1)
+color = Color(0.294118, 0.294118, 0.294118, 1)
 polygon = PackedVector2Array(-1220, -1500, 1184, -1509, 1181, -277, 1135, -245, 974, -263, 932, -303, 877, -404, 803, -532, 703, -597, 578, -639, 415, -659, 197, -667, 150, -737, 132, -861, 124, -1344, -120, -1346, -127, -861, -136, -712, -208, -665, -351, -650, -527, -610, -706, -537, -854, -415, -899, -294, -976, -248, -1073, -244, -1166, -266, -1211, -323)
 metadata/_edit_lock_ = true
 
@@ -133,29 +145,29 @@ metadata/_edit_lock_ = true
 z_index = 6
 
 [node name="BrainRock" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-1048, -306)
 rotation = 3.222
 
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock7" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-922, -346)
 rotation = 2.46923
 
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock7"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock2" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-789, -604)
 rotation = 2.45853
 scale = Vector2(2, 2)
@@ -163,11 +175,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock2"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock3" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-609, -659)
 rotation = 2.58393
 scale = Vector2(1.5, 1.5)
@@ -175,12 +187,12 @@ scale = Vector2(1.5, 1.5)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock3"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock4" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-363, -716)
 rotation = 2.88903
 scale = Vector2(1.5, 1.5)
@@ -188,12 +200,12 @@ scale = Vector2(1.5, 1.5)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock4"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock5" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-204, -892)
 rotation = 1.69611
 scale = Vector2(2, 2)
@@ -201,11 +213,11 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock5"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock6" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(266, -893)
 rotation = 4.42864
 scale = Vector2(2, 2)
@@ -213,12 +225,12 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock6"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 flip_h = true
 metadata/_edit_lock_ = true
 
 [node name="BrainRock8" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(449, -734)
 rotation = 3.34369
 scale = Vector2(1.5, 1.5)
@@ -226,11 +238,11 @@ scale = Vector2(1.5, 1.5)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock8"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock9" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(711, -684)
 rotation = 3.49671
 scale = Vector2(1.5, 1.5)
@@ -238,22 +250,22 @@ scale = Vector2(1.5, 1.5)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock9"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock11" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(873, -528)
 rotation = 4.18581
 
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock11"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 metadata/_edit_lock_ = true
 
 [node name="BrainRock12" type="Node2D" parent="Environment/CeilingDetails"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(1022, -473)
 rotation = 4.32916
 scale = Vector2(2, 2)
@@ -261,7 +273,7 @@ scale = Vector2(2, 2)
 [node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock12"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 flip_h = true
 metadata/_edit_lock_ = true
 
@@ -275,23 +287,10 @@ scroll_offset = Vector2(184.312, 479.034)
 [node name="BackgroundColors" type="ParallaxLayer" parent="Environment/BackgroundParallax"]
 
 [node name="GrayBg1" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundColors"]
-modulate = Color(0.25098, 0.25098, 0.25098, 1)
+modulate = Color(0.54902, 0.54902, 0.54902, 1)
 position = Vector2(0, -669)
 scale = Vector2(1.25, 1.25)
 texture = ExtResource("2_x0c23")
-metadata/_edit_lock_ = true
-
-[node name="BackgroundShadow" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundColors"]
-position = Vector2(3, -319)
-scale = Vector2(1.25, 1.25)
-texture = ExtResource("3_acj5i")
-metadata/_edit_lock_ = true
-
-[node name="BackgroundShadow2" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundColors"]
-position = Vector2(2.58424e-11, -812)
-rotation = 3.14159
-scale = Vector2(1.25, 1.25)
-texture = ExtResource("3_acj5i")
 metadata/_edit_lock_ = true
 
 [node name="Background2" type="ParallaxLayer" parent="Environment/BackgroundParallax"]
@@ -460,7 +459,7 @@ motion_scale = Vector2(1.3, 1)
 position = Vector2(350, -118)
 
 [node name="BrainRock3" type="Node2D" parent="Environment/ForegroundParallax/Foreground3/Pillar"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-12, -183)
 rotation = 1.5708
 scale = Vector2(6, 1)
@@ -468,11 +467,11 @@ scale = Vector2(6, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Pillar/BrainRock3"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 flip_h = true
 
 [node name="BrainRock4" type="Node2D" parent="Environment/ForegroundParallax/Foreground3/Pillar"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(13, -242)
 rotation = -1.59507
 scale = Vector2(6, 1.5)
@@ -480,7 +479,7 @@ scale = Vector2(6, 1.5)
 [node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Pillar/BrainRock4"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 flip_h = true
 
 [node name="Pillar2" type="Node2D" parent="Environment/ForegroundParallax/Foreground3"]
@@ -488,7 +487,7 @@ position = Vector2(-554, -118)
 scale = Vector2(-1, 1)
 
 [node name="BrainRock3" type="Node2D" parent="Environment/ForegroundParallax/Foreground3/Pillar2"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(-12, -183)
 rotation = 1.5708
 scale = Vector2(6, 1)
@@ -496,11 +495,11 @@ scale = Vector2(6, 1)
 [node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Pillar2/BrainRock3"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 flip_h = true
 
 [node name="BrainRock4" type="Node2D" parent="Environment/ForegroundParallax/Foreground3/Pillar2"]
-modulate = Color(0, 0, 0, 1)
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
 position = Vector2(13, -242)
 rotation = -1.59507
 scale = Vector2(6, 1.5)
@@ -508,7 +507,7 @@ scale = Vector2(6, 1.5)
 [node name="GFX" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Pillar2/BrainRock4"]
 position = Vector2(0, -64)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_44vxg")
+texture = ExtResource("4_fvcx1")
 flip_h = true
 
 [node name="Foreground4" type="ParallaxLayer" parent="Environment/ForegroundParallax"]
@@ -564,8 +563,17 @@ collision_mask = 4
 scene_to_load = "res://scenes/world_of_light/light_world_combat_room_1.tscn"
 door_location = "Right"
 
+[node name="ChangeSceneTrigger3" parent="." instance=ExtResource("7_811v8")]
+position = Vector2(139, -927)
+rotation = -1.57079
+collision_layer = 0
+collision_mask = 4
+scene_to_load = "res://scenes/world_of_light/light_world_lore_room_1.tscn"
+door_location = "Up"
+
 [node name="DoorManager" type="Node2D" parent="."]
 script = ExtResource("8_opbi5")
+entrance_up = Vector2(30, -730)
 entrance_left = Vector2(-900, 10)
 entrance_right = Vector2(1050, 10)
 
@@ -575,5 +583,14 @@ position = Vector2(-900, 10)
 [node name="RightEntrance" type="Node2D" parent="DoorManager"]
 position = Vector2(1050, 10)
 
-[node name="Mörk" parent="." instance=ExtResource("9_hfit8")]
-position = Vector2(500, 10)
+[node name="UpEntrance" type="Node2D" parent="DoorManager"]
+position = Vector2(30, -730)
+
+[node name="mURHAAJA" parent="." instance=ExtResource("9_r84u1")]
+position = Vector2(84, -233)
+
+[node name="mURHAAJA2" parent="." instance=ExtResource("9_r84u1")]
+position = Vector2(-270, -395)
+
+[node name="mURHAAJA3" parent="." instance=ExtResource("9_r84u1")]
+position = Vector2(280, -395)
