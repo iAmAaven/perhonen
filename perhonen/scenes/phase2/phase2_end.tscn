@@ -1,0 +1,226 @@
+[gd_scene load_steps=11 format=3 uid="uid://c0x1ex615jj3r"]
+
+[ext_resource type="PackedScene" uid="uid://bi8q20ceboln0" path="res://scenes/player.tscn" id="1_643s4"]
+[ext_resource type="Script" path="res://scripts/room.gd" id="1_rw46d"]
+[ext_resource type="Texture2D" uid="uid://cc6hm76cuoo62" path="res://assets/sprites/environment/brainRockShape.png" id="2_hl5cp"]
+[ext_resource type="Texture2D" uid="uid://qo0tfb40wh0g" path="res://assets/sprites/backgrounds/grayBG_1.png" id="3_plo16"]
+[ext_resource type="PackedScene" uid="uid://dsweujbxi4ljn" path="res://scenes/change_scene_trigger.tscn" id="4_wai78"]
+[ext_resource type="Script" path="res://scripts/door_manager.gd" id="5_r87h0"]
+[ext_resource type="PackedScene" uid="uid://fr73onriawhw" path="res://scenes/altars/lore_altar.tscn" id="6_hlgca"]
+[ext_resource type="PackedScene" uid="uid://dvblnc4jpgg38" path="res://scenes/player_ui.tscn" id="8_51wtw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7g3yk"]
+size = Vector2(2000, 403)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_372tp"]
+size = Vector2(54, 586)
+
+[node name="LightWorld_LoreRoom2" type="Node2D"]
+script = ExtResource("1_rw46d")
+
+[node name="Player" parent="." instance=ExtResource("1_643s4")]
+position = Vector2(-504, 10)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -55)
+zoom = Vector2(0.955, 0.955)
+limit_left = -600
+limit_top = -650
+limit_right = 800
+limit_bottom = 100
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="Environment"]
+position = Vector2(62, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground"]
+position = Vector2(0, 211.5)
+shape = SubResource("RectangleShape2D_7g3yk")
+
+[node name="Polygon2D" type="Polygon2D" parent="Environment/Ground"]
+color = Color(0.294118, 0.294118, 0.294118, 1)
+polygon = PackedVector2Array(-1000, 0, 1000, 0, 1000, 200, -1000, 200)
+
+[node name="GroundDetails" type="Node2D" parent="Environment"]
+z_index = 6
+
+[node name="BrainRock" type="Node2D" parent="Environment/GroundDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(-498, 60)
+
+[node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hl5cp")
+
+[node name="BrainRock2" type="Node2D" parent="Environment/GroundDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(-233, 57)
+
+[node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock2"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hl5cp")
+
+[node name="BrainRock3" type="Node2D" parent="Environment/GroundDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(182, 53)
+
+[node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock3"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hl5cp")
+
+[node name="BrainRock4" type="Node2D" parent="Environment/GroundDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(539, 56)
+
+[node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock4"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hl5cp")
+
+[node name="Ceiling" type="StaticBody2D" parent="Environment"]
+z_index = 6
+
+[node name="Polygon2D" type="Polygon2D" parent="Environment/Ceiling"]
+position = Vector2(25, 0)
+color = Color(0.294118, 0.294118, 0.294118, 1)
+polygon = PackedVector2Array(-730, -800, 962, -819, 975, 185, 601, 185, 597, -4, 906, -4, 904, -180, 745, -180, 627, -241, 591, -320, 498, -408, 364, -498, 120, -544, -130, -544, -320, -487, -445, -385, -539, -226, -651, -222, -653, -6, -537, -6, -543, 178, -727, 178)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Ceiling"]
+polygon = PackedVector2Array(998, 191, 956, -805, -706, -805, -703, 142, -512, 140, -516, 37, -682, 37, -683, -223, -513, -229, -420, -388, -299, -489, -105, -546, 150, -545, 401, -500, 519, -420, 620, -321, 654, -245, 774, -181, 930, -181, 930, 56, 627, 73, 627, 193)
+
+[node name="CeilingDetails" type="Node2D" parent="Environment"]
+visible = false
+z_index = 6
+
+[node name="BrainRock" type="Node2D" parent="Environment/CeilingDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(-542, -266)
+rotation = 2.76199
+scale = Vector2(1.5, 1.5)
+
+[node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hl5cp")
+
+[node name="BrainRock2" type="Node2D" parent="Environment/CeilingDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(-274, -266)
+rotation = 3.17823
+scale = Vector2(1.5, 1.5)
+
+[node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock2"]
+position = Vector2(-24.27, -25.1279)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hl5cp")
+
+[node name="BrainRock3" type="Node2D" parent="Environment/CeilingDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(-23, -350)
+rotation = 2.0959
+
+[node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock3"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hl5cp")
+
+[node name="BrainRock4" type="Node2D" parent="Environment/CeilingDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(354, -691)
+rotation = 3.47939
+scale = Vector2(2, 2)
+
+[node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock4"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hl5cp")
+metadata/_edit_lock_ = true
+
+[node name="BrainRock5" type="Node2D" parent="Environment/CeilingDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(636, -499)
+rotation = 4.19736
+scale = Vector2(1.6, 1.6)
+
+[node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock5"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hl5cp")
+metadata/_edit_lock_ = true
+
+[node name="BrainRock6" type="Node2D" parent="Environment/CeilingDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(103, -594)
+rotation = 3.08411
+
+[node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock6"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hl5cp")
+
+[node name="BrainRock7" type="Node2D" parent="Environment/CeilingDetails"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(691, -304)
+rotation = 4.82718
+scale = Vector2(1.5, 1.5)
+
+[node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock7"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hl5cp")
+
+[node name="BackgroundColors" type="Node2D" parent="Environment"]
+z_index = -1
+
+[node name="GrayBg1" type="Sprite2D" parent="Environment/BackgroundColors"]
+modulate = Color(0.54902, 0.54902, 0.54902, 1)
+position = Vector2(91, -250)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_plo16")
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+
+[node name="RightWall" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(-689, -129)
+shape = SubResource("RectangleShape2D_372tp")
+
+[node name="RightWall2" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(934, -134)
+shape = SubResource("RectangleShape2D_372tp")
+
+[node name="ChangeSceneTrigger" parent="." instance=ExtResource("4_wai78")]
+position = Vector2(-688, 30)
+collision_layer = 0
+collision_mask = 4
+scene_to_load = "res://scenes/world_of_light/light_world_combat_room_2.tscn"
+door_location = "Left"
+
+[node name="ChangeSceneTrigger2" parent="." instance=ExtResource("4_wai78")]
+position = Vector2(897, 43)
+collision_layer = 0
+collision_mask = 4
+scene_to_load = "res://scenes/world_of_light/light_world_combat_room_4.tscn"
+door_location = "Right"
+
+[node name="DoorManager" type="Node2D" parent="."]
+script = ExtResource("5_r87h0")
+entrance_up = Vector2(63, 10)
+entrance_down = Vector2(63, 10)
+entrance_left = Vector2(-504, 10)
+entrance_right = Vector2(818, 10)
+
+[node name="LeftEntrance" type="Node2D" parent="DoorManager"]
+position = Vector2(-498, 10)
+
+[node name="RightEntrance" type="Node2D" parent="DoorManager"]
+position = Vector2(818, 10)
+
+[node name="LoreAltar" parent="." instance=ExtResource("6_hlgca")]
+position = Vector2(63, 10)
+memory_name = "res://scenes/memories/memory_1.tscn"
+
+[node name="PlayerUI" parent="." instance=ExtResource("8_51wtw")]

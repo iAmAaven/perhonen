@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://3h32ei4yb0in"]
+
+[ext_resource type="Script" path="res://scripts/bundle_of_joy.gd" id="1_kvq75"]
+[ext_resource type="Texture2D" uid="uid://u5iij2vwcbco" path="res://assets/sprites/bundleOfJoy.png" id="2_cyjtp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1mwwj"]
+radius = 51.0098
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ai1bv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cyjtp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_jyc78"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -37.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.15, 0.15)]
+}
+
+[sub_resource type="Animation" id="Animation_f1ykp"]
+resource_name = "hover"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -37.5), Vector2(0, -50), Vector2(0, -37.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.15, 0.15), Vector2(0.175, 0.175), Vector2(0.15, 0.15)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y2ead"]
+_data = {
+"RESET": SubResource("Animation_jyc78"),
+"hover": SubResource("Animation_f1ykp")
+}
+
+[node name="BundleOfJoy" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+gravity_space_override = 1
+script = ExtResource("1_kvq75")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -42)
+shape = SubResource("CircleShape2D_1mwwj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -37.5)
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_ai1bv")
+
+[node name="HoverAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y2ead")
+}
+autoplay = "hover"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

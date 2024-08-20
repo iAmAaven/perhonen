@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://u26t4waq1wh2"]
+
+[ext_resource type="Texture2D" uid="uid://qhyn1gdqwn3w" path="res://assets/sprites/friend_1.png" id="1_20yrp"]
+[ext_resource type="Script" path="res://scripts/friend.gd" id="1_x8ib2"]
+[ext_resource type="Texture2D" uid="uid://bpbw86yrq4tdv" path="res://assets/sprites/friend_2.png" id="2_cnad6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7wvsh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_20yrp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_cnad6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="Friend" type="Node2D"]
+script = ExtResource("1_x8ib2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_7wvsh")
+autoplay = "default"
+frame_progress = 0.813807

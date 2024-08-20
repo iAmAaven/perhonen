@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cqhkgcogtpvjs"]
-
-[ext_resource type="Script" path="res://scripts/doors_unlocked_data.gd" id="1_m6kid"]
-
-[node name="DoorsUnlockedData" type="Node"]
-script = ExtResource("1_m6kid")
