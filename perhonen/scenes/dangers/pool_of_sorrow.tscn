@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbpfgadtmxn4m"]
+
+[ext_resource type="Texture2D" uid="uid://cagb2g2flfkr7" path="res://assets/sprites/dangers/poolOfSorrow.png" id="1_gt4do"]
+[ext_resource type="Script" path="res://scripts/danger_scripts/pool_of_sorrow.gd" id="1_w86dd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ciju2"]
+size = Vector2(200, 162)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sp88m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gt4do")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PoolOfSorrow" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_w86dd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -82)
+shape = SubResource("RectangleShape2D_ciju2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -100)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_sp88m")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1dl4okt7ngp6"]
+
+[ext_resource type="Texture2D" uid="uid://brncqg2o62y4f" path="res://assets/sprites/dangers/spikeOfHate.png" id="1_3cmqj"]
+[ext_resource type="Script" path="res://scripts/danger_scripts/spike_of_hate.gd" id="1_jusd3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7knbl"]
+radius = 8.0
+height = 90.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y0oj6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3cmqj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8mbbw"]
+radius = 8.0
+height = 90.0
+
+[node name="SpikeOfHate" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_jusd3")
+speed = 750
+
+[node name="GroundCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 46)
+shape = SubResource("CapsuleShape2D_7knbl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 50)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_y0oj6")
+
+[node name="PlayerDetection" type="RayCast2D" parent="."]
+target_position = Vector2(0, 800)
+collision_mask = 4
+
+[node name="HitCollider" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitCollider"]
+position = Vector2(0, 47)
+shape = SubResource("CapsuleShape2D_8mbbw")
+
+[connection signal="body_entered" from="HitCollider" to="." method="_on_hit_collider_body_entered"]

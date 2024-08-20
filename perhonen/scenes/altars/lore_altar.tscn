@@ -1,0 +1,180 @@
+[gd_scene load_steps=13 format=3 uid="uid://fr73onriawhw"]
+
+[ext_resource type="Script" path="res://scripts/lore_altar.gd" id="1_gomfa"]
+[ext_resource type="Texture2D" uid="uid://ccu3nwcnwvhuu" path="res://assets/sprites/environment/loreAltar.png" id="1_l8aqd"]
+[ext_resource type="Texture2D" uid="uid://cxdjdr1ghtq1v" path="res://assets/sprites/environment/loreBook.png" id="2_e7phq"]
+[ext_resource type="FontFile" uid="uid://dk5fa115rpolw" path="res://assets/Resilient Font.ttf" id="3_ol16f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xgf7x"]
+size = Vector2(64, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7qg7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_l8aqd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ur7i5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_e7phq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q72tk"]
+size = Vector2(458, 400)
+
+[sub_resource type="Animation" id="Animation_i6nl0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookGraphics:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -200)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RememberText:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-230, -271)]
+}
+
+[sub_resource type="Animation" id="Animation_umc2l"]
+resource_name = "hover"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookGraphics:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -200), Vector2(0, -225), Vector2(0, -200)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RememberText:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-230, -271), Vector2(-230, -280), Vector2(-230, -271)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b3xem"]
+_data = {
+"RESET": SubResource("Animation_i6nl0"),
+"hover": SubResource("Animation_umc2l")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_c16lg"]
+line_spacing = 0.0
+font = ExtResource("3_ol16f")
+font_size = 26
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 15
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 1)
+
+[node name="LoreAltar" type="StaticBody2D"]
+script = ExtResource("1_gomfa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -36)
+shape = SubResource("RectangleShape2D_xgf7x")
+one_way_collision = true
+
+[node name="AltarGraphics" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -200)
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_7qg7s")
+
+[node name="BookGraphics" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -200)
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_ur7i5")
+
+[node name="TriggerArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerArea"]
+position = Vector2(0, -200)
+shape = SubResource("RectangleShape2D_q72tk")
+
+[node name="BookHover" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_b3xem")
+}
+autoplay = "hover"
+
+[node name="RememberText" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -271.0
+offset_right = 230.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="RememberText"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -11.5
+offset_right = 152.0
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "PRESS [E] TO
+REMEMBER"
+label_settings = SubResource("LabelSettings_c16lg")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+justification_flags = 0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
+[connection signal="body_exited" from="TriggerArea" to="." method="_on_trigger_area_body_exited"]

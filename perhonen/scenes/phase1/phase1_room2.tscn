@@ -1,0 +1,158 @@
+[gd_scene load_steps=11 format=3 uid="uid://bv3kpeifj5ut2"]
+
+[ext_resource type="PackedScene" uid="uid://bi8q20ceboln0" path="res://scenes/player.tscn" id="1_hd0ik"]
+[ext_resource type="Script" path="res://scripts/room.gd" id="1_sh6iu"]
+[ext_resource type="Texture2D" uid="uid://cc6hm76cuoo62" path="res://assets/sprites/environment/brainRockShape.png" id="3_c3ced"]
+[ext_resource type="Texture2D" uid="uid://qo0tfb40wh0g" path="res://assets/sprites/backgrounds/grayBG_1.png" id="3_puky6"]
+[ext_resource type="PackedScene" uid="uid://dsweujbxi4ljn" path="res://scenes/change_scene_trigger.tscn" id="6_x68hp"]
+[ext_resource type="Script" path="res://scripts/door_manager.gd" id="7_k768p"]
+[ext_resource type="PackedScene" uid="uid://b1dl4okt7ngp6" path="res://scenes/dangers/spike_of_hate.tscn" id="8_sq2hs"]
+[ext_resource type="PackedScene" uid="uid://dpe56usoi8ynv" path="res://scenes/enemies/murhaaja.tscn" id="9_mun6s"]
+[ext_resource type="PackedScene" uid="uid://dvblnc4jpgg38" path="res://scenes/player_ui.tscn" id="10_ab76y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4aly"]
+size = Vector2(56, 536)
+
+[node name="LightWorld_CombatRoom3" type="Node2D"]
+script = ExtResource("1_sh6iu")
+
+[node name="Player" parent="." instance=ExtResource("1_hd0ik")]
+position = Vector2(-140, 10)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -55)
+zoom = Vector2(0.955, 0.955)
+limit_left = -2400
+limit_top = -800
+limit_right = 1050
+limit_bottom = 50
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="Environment"]
+position = Vector2(-1053, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="Environment/Ground"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-1654, -110, -956, -110, -956, 0, 1000, 0, 1000, 200, -1654, 200)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Ground"]
+polygon = PackedVector2Array(-956, -110, -1654, -110, -1656, 199, 1000, 207, 1000, 0, -956, 0)
+
+[node name="GroundDetails" type="Node2D" parent="Environment"]
+z_index = 6
+
+[node name="BrainRock" type="Node2D" parent="Environment/GroundDetails"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-304, 93)
+rotation = 0.0835837
+scale = Vector2(2, 1.5)
+
+[node name="GFX" type="Sprite2D" parent="Environment/GroundDetails/BrainRock"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_c3ced")
+
+[node name="Ceiling" type="StaticBody2D" parent="Environment"]
+z_index = 6
+
+[node name="Polygon2D" type="Polygon2D" parent="Environment/Ceiling"]
+modulate = Color(0.294118, 0.294118, 0.294118, 1)
+position = Vector2(25, 0)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-2709, -957, 1160, -954, 1160, 417, -2706, 419, -2713, 21, -78, 22, -78, 334, 50, 333, 50, -104, -44, -179, -250, -224, -381, -432, -476, -469, -753, -523, -1118, -520, -1441, -533, -1935, -518, -2090, -465, -2180, -386, -2250, -316, -2343, -276, -2709, -273)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Environment/Ceiling"]
+polygon = PackedVector2Array(-2651, -274, -2314, -277, -2222, -318, -2149, -393, -2059, -464, -1909, -520, -1432, -531, -1100, -522, -722, -524, -447, -469, -359, -431, -223, -223, -22, -181, 75, -106, 75, 345, -53, 345, -53, 199, -1639, 175, -1635, 424, 1180, 412, 1183, -942, -2681, -946, -2677, 417, -2649, 418)
+
+[node name="CeilingDetails" type="Node2D" parent="Environment"]
+z_index = 6
+
+[node name="BrainRock" type="Node2D" parent="Environment/CeilingDetails"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(-2099, -545)
+rotation = 2.76199
+scale = Vector2(1.5, 1.5)
+
+[node name="GFX" type="Sprite2D" parent="Environment/CeilingDetails/BrainRock"]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_c3ced")
+
+[node name="BackgroundColors" type="Node2D" parent="Environment"]
+z_index = -1
+
+[node name="GrayBg1" type="Sprite2D" parent="Environment/BackgroundColors"]
+modulate = Color(0.392157, 0.392157, 0.392157, 1)
+position = Vector2(-1258, -166)
+scale = Vector2(1.4, 0.7)
+texture = ExtResource("3_puky6")
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+
+[node name="RightWall" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(1185, -125)
+shape = SubResource("RectangleShape2D_e4aly")
+
+[node name="ChangeSceneTrigger" parent="." instance=ExtResource("6_x68hp")]
+position = Vector2(-2504, -87)
+collision_layer = 0
+collision_mask = 4
+scene_to_load = "res://scenes/phase1/phase1_room3.tscn"
+door_location = "Right"
+
+[node name="ChangeSceneTrigger2" parent="." instance=ExtResource("6_x68hp")]
+position = Vector2(-54, 324)
+rotation = 1.5708
+collision_layer = 0
+collision_mask = 4
+scene_to_load = "res://scenes/phase1/phase1_room1.tscn"
+door_location = "Down"
+
+[node name="DoorManager" type="Node2D" parent="."]
+script = ExtResource("7_k768p")
+entrance_down = Vector2(-100, 10)
+entrance_right = Vector2(830, 10)
+
+[node name="RightEntrance" type="Node2D" parent="DoorManager"]
+position = Vector2(830, 10)
+
+[node name="PlayerUI" parent="." instance=ExtResource("10_ab76y")]
+
+[node name="Spikes" type="Node2D" parent="."]
+
+[node name="SpikeOfHate" parent="Spikes" instance=ExtResource("8_sq2hs")]
+position = Vector2(-528, -485)
+
+[node name="SpikeOfHate2" parent="Spikes" instance=ExtResource("8_sq2hs")]
+position = Vector2(-725, -524)
+
+[node name="SpikeOfHate3" parent="Spikes" instance=ExtResource("8_sq2hs")]
+position = Vector2(-914, -524)
+
+[node name="SpikeOfHate4" parent="Spikes" instance=ExtResource("8_sq2hs")]
+position = Vector2(-1097, -524)
+
+[node name="SpikeOfHate5" parent="Spikes" instance=ExtResource("8_sq2hs")]
+position = Vector2(-1271, -529)
+
+[node name="SpikeOfHate6" parent="Spikes" instance=ExtResource("8_sq2hs")]
+position = Vector2(-1436, -533)
+
+[node name="SpikeOfHate7" parent="Spikes" instance=ExtResource("8_sq2hs")]
+position = Vector2(-1614, -528)
+
+[node name="SpikeOfHate8" parent="Spikes" instance=ExtResource("8_sq2hs")]
+position = Vector2(-1790, -522)
+
+[node name="SpikeOfHate9" parent="Spikes" instance=ExtResource("8_sq2hs")]
+position = Vector2(-1951, -509)
+
+[node name="mURHAAJA" parent="." instance=ExtResource("9_mun6s")]
+position = Vector2(-914, 10)
+
+[node name="mURHAAJA2" parent="." instance=ExtResource("9_mun6s")]
+position = Vector2(-1931, 10)
+
+[node name="mURHAAJA3" parent="." instance=ExtResource("9_mun6s")]
+position = Vector2(-1436, 10)

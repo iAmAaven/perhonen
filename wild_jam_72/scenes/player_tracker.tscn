@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b83t6fbe05ek8"]
-
-[ext_resource type="Script" path="res://scripts/player_tracker.gd" id="1_lnc2n"]
-
-[node name="PlayerTracker" type="Node"]
-script = ExtResource("1_lnc2n")
