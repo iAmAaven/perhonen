@@ -1,17 +1,28 @@
 extends Node
 
 
+# Room navigation data
 var last_door_entered: String
 var last_checkpoint: String
-var health = 50
-var max_health = 50
+
+# Player data
+var health = 4
+var max_health = 4
 var player_damage: int = 1
 
-var can_move = true
+# Ability data
+var can_slice := false
+var can_dash := false
+var can_slice_down := false
+var can_levitate := false
+
+# Can be used to disable player movement during cutscene animations
+var able_to_move = true
 
 
+# Can be called to disable player movement
 func block_movement():
-	can_move = false
+	able_to_move = false
 
 func enable_movement():
-	can_move = true
+	able_to_move = true

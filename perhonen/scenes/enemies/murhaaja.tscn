@@ -127,7 +127,6 @@ collision_layer = 2
 script = ExtResource("1_hcf1o")
 health = 3
 max_health = 3
-damage = 10
 
 [node name="Graphics" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -87)

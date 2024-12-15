@@ -38,7 +38,7 @@ sprite_frames = SubResource("SpriteFrames_y0oj6")
 
 [node name="PlayerDetection" type="RayCast2D" parent="."]
 target_position = Vector2(0, 800)
-collision_mask = 4
+collision_mask = 5
 
 [node name="HitCollider" type="Area2D" parent="."]
 collision_layer = 0

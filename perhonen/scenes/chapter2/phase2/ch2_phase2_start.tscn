@@ -1,0 +1,1421 @@
+[gd_scene load_steps=23 format=3 uid="uid://bk57o2lwtpu3h"]
+
+[ext_resource type="Script" path="res://scripts/starting_room.gd" id="1_ylkka"]
+[ext_resource type="PackedScene" uid="uid://d0nw4gqmk7sjs" path="res://scenes/daughter.tscn" id="2_gq8jb"]
+[ext_resource type="Texture2D" uid="uid://cagb2g2flfkr7" path="res://assets/sprites/dangers/poolOfSorrow.png" id="3_axdk0"]
+[ext_resource type="Texture2D" uid="uid://qo0tfb40wh0g" path="res://assets/sprites/backgrounds/grayBG_1.png" id="4_frtxs"]
+[ext_resource type="PackedScene" uid="uid://dr4g8bqityxhp" path="res://scenes/environment/tree.tscn" id="5_goojf"]
+[ext_resource type="Texture2D" uid="uid://c104ixksk0fv8" path="res://assets/sprites/backgrounds/background_shadow.png" id="6_parso"]
+[ext_resource type="Texture2D" uid="uid://beot1nr2go62x" path="res://assets/sprites/environment/grass1.png" id="7_1kaap"]
+[ext_resource type="Shader" path="res://assets/shaders/blur.gdshader" id="8_f3173"]
+[ext_resource type="Script" path="res://scripts/door_manager.gd" id="8_fkj5c"]
+[ext_resource type="Texture2D" uid="uid://cxo8lwlwbfcwr" path="res://assets/sprites/environment/brainRock2Shape.png" id="9_d0o0c"]
+[ext_resource type="PackedScene" uid="uid://cf5gc88w2ausu" path="res://scenes/environment/rock_1.tscn" id="9_r3ge0"]
+[ext_resource type="PackedScene" uid="uid://j0ehfrlktuke" path="res://scenes/environment/rock_2.tscn" id="10_upkle"]
+[ext_resource type="PackedScene" uid="uid://dpxanw4yh43xx" path="res://scenes/altars/power_altar.tscn" id="11_k0lon"]
+[ext_resource type="PackedScene" uid="uid://csexfccp5wuam" path="res://scenes/dangers/player_respawner.tscn" id="12_irsh7"]
+[ext_resource type="Texture2D" uid="uid://cebvig8pc6bay" path="res://assets/sprites/environment/rock1.png" id="13_60gjn"]
+[ext_resource type="PackedScene" uid="uid://bi8q20ceboln0" path="res://scenes/player.tscn" id="16_gpxve"]
+[ext_resource type="PackedScene" uid="uid://dvblnc4jpgg38" path="res://scenes/player_ui.tscn" id="17_xevsh"]
+
+[sub_resource type="Gradient" id="Gradient_t6td2"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m1oav"]
+gradient = SubResource("Gradient_t6td2")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.9, 0.8)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_17vn7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6u4ph"]
+shader = ExtResource("8_f3173")
+shader_parameter/lod = 1.041
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4aly"]
+size = Vector2(56, 536)
+
+[node name="CH2_Phase2_Start" type="Node2D"]
+script = ExtResource("1_ylkka")
+
+[node name="In-Editor Light (DISABLE WHEN PLAYING)" type="DirectionalLight2D" parent="."]
+visible = false
+range_layer_min = -100
+range_layer_max = 100
+
+[node name="In-Game Light" type="DirectionalLight2D" parent="."]
+blend_mode = 1
+range_layer_min = -100
+range_layer_max = 100
+range_item_cull_mask = 0
+
+[node name="Player" parent="." instance=ExtResource("2_gq8jb")]
+visible = false
+z_index = 0
+position = Vector2(0, 10)
+
+[node name="FlashLight" type="PointLight2D" parent="Player"]
+position = Vector2(0, -55)
+scale = Vector2(40, 40)
+blend_mode = 2
+range_layer_min = -100
+range_layer_max = 100
+texture = SubResource("GradientTexture2D_m1oav")
+
+[node name="PoolOfSorrow" type="Sprite2D" parent="."]
+position = Vector2(966, -1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_axdk0")
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="GroundCollider" type="StaticBody2D" parent="Environment"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/GroundCollider"]
+position = Vector2(0, 10)
+shape = SubResource("WorldBoundaryShape2D_17vn7")
+
+[node name="GroundDetails" type="Node2D" parent="Environment"]
+z_index = 6
+
+[node name="BackgroundParallax" type="ParallaxBackground" parent="Environment"]
+layer = -1
+
+[node name="BackgroundColors" type="ParallaxLayer" parent="Environment/BackgroundParallax"]
+motion_scale = Vector2(0, 1)
+
+[node name="GrayBg1" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundColors"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(410, -384)
+scale = Vector2(1.1, 0.7)
+texture = ExtResource("4_frtxs")
+
+[node name="Background0" type="ParallaxLayer" parent="Environment/BackgroundParallax"]
+motion_scale = Vector2(0.1, 1)
+
+[node name="Trees" type="Node2D" parent="Environment/BackgroundParallax/Background0"]
+position = Vector2(-52, -82)
+
+[node name="Tree" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(99, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree2" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(-108, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree3" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(299, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree4" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(-343, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree5" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(-461, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree6" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(462, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree7" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(667, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree8" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(1499, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree9" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(1292, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree10" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(1699, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree11" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(1057, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree12" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(939, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree13" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(1862, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree14" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(2067, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree15" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(2743, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree16" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(2536, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree17" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(2943, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree18" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(2301, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree19" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(2183, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree20" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(3106, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree21" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(3311, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree22" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(3827, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree23" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(3620, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree24" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(4027, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree25" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(3385, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree26" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(3267, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree27" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(4190, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="Tree28" parent="Environment/BackgroundParallax/Background0/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.136826, 0.136826, 0.136826, 1)
+position = Vector2(4395, -123)
+scale = Vector2(0.3, 0.48)
+
+[node name="BackgroundShadow" type="Sprite2D" parent="Environment/BackgroundParallax/Background0"]
+position = Vector2(8081, -353)
+scale = Vector2(10, 0.5)
+texture = ExtResource("6_parso")
+
+[node name="BackgroundGrass" type="ParallaxLayer" parent="Environment/BackgroundParallax"]
+motion_scale = Vector2(0.3, 1)
+
+[node name="Grass" type="Node2D" parent="Environment/BackgroundParallax/BackgroundGrass"]
+modulate = Color(0.158472, 0.158472, 0.158472, 1)
+position = Vector2(0, -41)
+
+[node name="Grass1" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(-540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass2" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(0, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass3" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass4" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(1080, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass5" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(1620, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass6" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(2160, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass7" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(2700, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass8" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(3240, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass9" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(3780, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass10" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(4320, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass11" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(4860, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass12" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(5400, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass13" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(5940, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass14" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(6480, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass15" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(7020, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass16" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass/Grass"]
+position = Vector2(7560, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="BackgroundShadow" type="Sprite2D" parent="Environment/BackgroundParallax/BackgroundGrass"]
+position = Vector2(8096, -342)
+scale = Vector2(10, 1)
+texture = ExtResource("6_parso")
+
+[node name="Background1" type="ParallaxLayer" parent="Environment/BackgroundParallax"]
+motion_scale = Vector2(0.4, 1)
+
+[node name="Ground" type="Polygon2D" parent="Environment/BackgroundParallax/Background1"]
+color = Color(0.27451, 0.27451, 0.27451, 1)
+polygon = PackedVector2Array(-1470, 533, -1470, -173, 5115, -173, 5115, 533)
+
+[node name="Trees" type="Node2D" parent="Environment/BackgroundParallax/Background1"]
+position = Vector2(0, -50)
+
+[node name="Tree" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(114, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree2" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(-93, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree3" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(314, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree4" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(-328, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree5" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(-446, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree6" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(477, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree7" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(682, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree8" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(1355, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree9" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(1148, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree10" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(1555, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree11" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(913, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree12" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(795, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree13" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(1718, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree14" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(1923, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree15" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(2776, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree16" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(2569, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree17" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(2976, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree18" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(2334, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree19" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(2216, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree20" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(3139, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree21" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(3344, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree22" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(4171, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree23" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(3964, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree24" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(4371, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree25" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(3729, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree26" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(3611, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree27" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(4534, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Tree28" parent="Environment/BackgroundParallax/Background1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.332881, 0.332881, 0.332881, 1)
+position = Vector2(4739, -108)
+scale = Vector2(0.42, 0.672)
+
+[node name="Grass" type="Node2D" parent="Environment/BackgroundParallax/Background1"]
+modulate = Color(0.194349, 0.194349, 0.194349, 1)
+position = Vector2(-3, 7)
+
+[node name="Grass1" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(-540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass2" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(0, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass3" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass4" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(1080, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass5" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(1620, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass6" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(2160, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass7" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(2700, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass8" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(3240, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass9" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(3780, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass10" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(4320, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass11" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(4860, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass12" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(5400, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass13" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(5940, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass14" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(6480, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass15" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(7020, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass16" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Grass"]
+position = Vector2(7560, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Shadows" type="Node2D" parent="Environment/BackgroundParallax/Background1"]
+
+[node name="BackgroundShadow" type="Sprite2D" parent="Environment/BackgroundParallax/Background1/Shadows"]
+position = Vector2(8110, -269)
+scale = Vector2(10, 1)
+texture = ExtResource("6_parso")
+
+[node name="Background2" type="ParallaxLayer" parent="Environment/BackgroundParallax"]
+motion_scale = Vector2(0.7, 1)
+
+[node name="Trees" type="Node2D" parent="Environment/BackgroundParallax/Background2"]
+
+[node name="Tree" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(222, -91)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree2" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(12, -91)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree3" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(-365, -94)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree4" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(536, -91)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree5" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(833, -91)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree6" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(1590, -91)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree7" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(2803, -91)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree8" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(2487, -91)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree9" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(2024, -94)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree10" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(3117, -91)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree11" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(3459, -91)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree12" parent="Environment/BackgroundParallax/Background2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.439049, 0.439049, 0.439049, 1)
+position = Vector2(4191, -91)
+scale = Vector2(0.5, 0.8)
+
+[node name="Grass" type="Node2D" parent="Environment/BackgroundParallax/Background2"]
+modulate = Color(0.233925, 0.233925, 0.233925, 1)
+position = Vector2(20, 64)
+
+[node name="Grass1" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(-540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass2" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(0, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass3" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass4" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(1080, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass5" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(1620, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass6" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(2160, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass7" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(2700, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass8" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(3240, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass9" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(3780, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass10" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(4320, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass11" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(4860, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass12" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(5400, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass13" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(5940, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass14" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(6480, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass15" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(7020, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass16" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Grass"]
+position = Vector2(7560, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Blur" type="Sprite2D" parent="Environment/BackgroundParallax/Background2"]
+material = SubResource("ShaderMaterial_6u4ph")
+position = Vector2(2991, -368)
+scale = Vector2(20, 3)
+texture = ExtResource("9_d0o0c")
+
+[node name="Shadows" type="Node2D" parent="Environment/BackgroundParallax/Background2"]
+
+[node name="BackgroundShadow" type="Sprite2D" parent="Environment/BackgroundParallax/Background2/Shadows"]
+position = Vector2(13154, -190)
+scale = Vector2(15, 1)
+texture = ExtResource("6_parso")
+
+[node name="Background3" type="ParallaxLayer" parent="Environment/BackgroundParallax"]
+
+[node name="Trees" type="Node2D" parent="Environment/BackgroundParallax/Background3"]
+
+[node name="Tree" parent="Environment/BackgroundParallax/Background3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.617455, 0.617455, 0.617455, 1)
+position = Vector2(-309, -25)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree2" parent="Environment/BackgroundParallax/Background3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.617455, 0.617455, 0.617455, 1)
+position = Vector2(-580, -25)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree4" parent="Environment/BackgroundParallax/Background3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.617455, 0.617455, 0.617455, 1)
+position = Vector2(318, -25)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree5" parent="Environment/BackgroundParallax/Background3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.617455, 0.617455, 0.617455, 1)
+position = Vector2(642, -25)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree6" parent="Environment/BackgroundParallax/Background3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.617455, 0.617455, 0.617455, 1)
+position = Vector2(1450, -25)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree3" parent="Environment/BackgroundParallax/Background3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.617455, 0.617455, 0.617455, 1)
+position = Vector2(2444, -25)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree7" parent="Environment/BackgroundParallax/Background3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.617455, 0.617455, 0.617455, 1)
+position = Vector2(1825, -25)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree8" parent="Environment/BackgroundParallax/Background3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.617455, 0.617455, 0.617455, 1)
+position = Vector2(3251, -25)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree9" parent="Environment/BackgroundParallax/Background3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.617455, 0.617455, 0.617455, 1)
+position = Vector2(3834, -25)
+scale = Vector2(0.5, 0.8)
+
+[node name="Tree10" parent="Environment/BackgroundParallax/Background3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.617455, 0.617455, 0.617455, 1)
+position = Vector2(4279, -25)
+scale = Vector2(0.5, 0.8)
+
+[node name="Grass" type="Node2D" parent="Environment/BackgroundParallax/Background3"]
+modulate = Color(0.27451, 0.27451, 0.27451, 1)
+position = Vector2(0, 126)
+
+[node name="Grass1" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(-540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass2" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(0, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass3" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass4" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(1080, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass5" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(1620, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass6" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(2160, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass7" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(2700, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass8" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(3240, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass9" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(3780, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass10" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(4320, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass11" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(4860, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass12" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(5400, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass13" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(5940, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass14" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(6480, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass15" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(7020, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass16" type="Sprite2D" parent="Environment/BackgroundParallax/Background3/Grass"]
+position = Vector2(7560, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="ForegroundParallax" type="ParallaxBackground" parent="Environment"]
+layer = 0
+scroll_base_offset = Vector2(-165, 0)
+
+[node name="ForegroundGrass" type="ParallaxLayer" parent="Environment/ForegroundParallax"]
+
+[node name="Grass" type="Node2D" parent="Environment/ForegroundParallax/ForegroundGrass"]
+modulate = Color(0.233925, 0.233925, 0.233925, 1)
+position = Vector2(0, 191)
+
+[node name="Grass1" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(-540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass2" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(0, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass3" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass4" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(1080, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass5" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(1620, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass6" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(2160, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass7" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(2700, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass8" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(3240, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass9" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(3780, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass10" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(4320, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass11" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(4860, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass12" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(5400, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass13" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(5940, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass14" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(6480, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass15" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(7020, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass16" type="Sprite2D" parent="Environment/ForegroundParallax/ForegroundGrass/Grass"]
+position = Vector2(7560, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Foreground1" type="ParallaxLayer" parent="Environment/ForegroundParallax"]
+motion_scale = Vector2(1.2, 1)
+
+[node name="Trees" type="Node2D" parent="Environment/ForegroundParallax/Foreground1"]
+position = Vector2(0, -20)
+
+[node name="Tree" parent="Environment/ForegroundParallax/Foreground1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.244776, 0.244776, 0.244776, 1)
+position = Vector2(-710, 59)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree2" parent="Environment/ForegroundParallax/Foreground1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.244776, 0.244776, 0.244776, 1)
+position = Vector2(1733, 59)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree3" parent="Environment/ForegroundParallax/Foreground1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.244776, 0.244776, 0.244776, 1)
+position = Vector2(3391, 59)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree4" parent="Environment/ForegroundParallax/Foreground1/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.244776, 0.244776, 0.244776, 1)
+position = Vector2(5834, 59)
+scale = Vector2(0.6, 0.9)
+
+[node name="Grass" type="Node2D" parent="Environment/ForegroundParallax/Foreground1"]
+modulate = Color(0.194349, 0.194349, 0.194349, 1)
+position = Vector2(-82, 224)
+
+[node name="Grass1" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(-540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass2" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(0, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass3" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass4" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(1080, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass5" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(1620, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass6" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(2160, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass7" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(2700, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass8" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(3240, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass9" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(3780, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass10" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(4320, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass11" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(4860, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass12" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(5400, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass13" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(5940, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass14" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(6480, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass15" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(7020, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass16" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground1/Grass"]
+position = Vector2(7560, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Foreground2" type="ParallaxLayer" parent="Environment/ForegroundParallax"]
+motion_scale = Vector2(1.4, 1)
+
+[node name="Trees" type="Node2D" parent="Environment/ForegroundParallax/Foreground2"]
+
+[node name="Tree" parent="Environment/ForegroundParallax/Foreground2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.176419, 0.176419, 0.176419, 1)
+position = Vector2(320, 88)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree2" parent="Environment/ForegroundParallax/Foreground2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.176419, 0.176419, 0.176419, 1)
+position = Vector2(-309, 88)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree3" parent="Environment/ForegroundParallax/Foreground2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.176419, 0.176419, 0.176419, 1)
+position = Vector2(2321, 88)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree4" parent="Environment/ForegroundParallax/Foreground2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.176419, 0.176419, 0.176419, 1)
+position = Vector2(3008, 88)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree5" parent="Environment/ForegroundParallax/Foreground2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.176419, 0.176419, 0.176419, 1)
+position = Vector2(2029, 88)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree6" parent="Environment/ForegroundParallax/Foreground2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.176419, 0.176419, 0.176419, 1)
+position = Vector2(4276, 88)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree7" parent="Environment/ForegroundParallax/Foreground2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.176419, 0.176419, 0.176419, 1)
+position = Vector2(5757, 88)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree8" parent="Environment/ForegroundParallax/Foreground2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.176419, 0.176419, 0.176419, 1)
+position = Vector2(4778, 88)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree9" parent="Environment/ForegroundParallax/Foreground2/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0.176419, 0.176419, 0.176419, 1)
+position = Vector2(7025, 88)
+scale = Vector2(0.6, 0.9)
+
+[node name="Grass" type="Node2D" parent="Environment/ForegroundParallax/Foreground2"]
+modulate = Color(0.158472, 0.158472, 0.158472, 1)
+position = Vector2(0, 272)
+
+[node name="Grass1" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(-540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass2" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(0, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass3" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass4" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(1080, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass5" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(1620, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass6" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(2160, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass7" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(2700, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass8" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(3240, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass9" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(3780, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass10" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(4320, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass11" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(4860, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass12" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(5400, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass13" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(5940, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass14" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(6480, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass15" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(7020, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass16" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground2/Grass"]
+position = Vector2(7560, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Foreground3" type="ParallaxLayer" parent="Environment/ForegroundParallax"]
+motion_scale = Vector2(1.6, 1)
+
+[node name="Trees" type="Node2D" parent="Environment/ForegroundParallax/Foreground3"]
+
+[node name="Tree" parent="Environment/ForegroundParallax/Foreground3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(2319, 126)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree2" parent="Environment/ForegroundParallax/Foreground3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(601, 140)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree3" parent="Environment/ForegroundParallax/Foreground3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(5224, 126)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree4" parent="Environment/ForegroundParallax/Foreground3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(3506, 140)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree5" parent="Environment/ForegroundParallax/Foreground3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(7473, 126)
+scale = Vector2(0.6, 0.9)
+
+[node name="Tree6" parent="Environment/ForegroundParallax/Foreground3/Trees" instance=ExtResource("5_goojf")]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(6393, 140)
+scale = Vector2(0.6, 0.9)
+
+[node name="Grass" type="Node2D" parent="Environment/ForegroundParallax/Foreground3"]
+modulate = Color(0.118581, 0.118581, 0.118581, 1)
+position = Vector2(0, 305)
+
+[node name="Grass1" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(-540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass2" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(0, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass3" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(540, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass4" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(1080, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass5" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(1620, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass6" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(2160, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass7" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(2700, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass8" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(3240, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass9" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(3240, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass10" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(3780, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass11" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(4320, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass12" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(4860, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass13" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(5400, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass14" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(5940, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass15" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(6480, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass16" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(7020, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass17" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(7560, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass18" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(8100, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass19" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(8640, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass20" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(8640, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass21" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(9180, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Grass22" type="Sprite2D" parent="Environment/ForegroundParallax/Foreground3/Grass"]
+position = Vector2(9720, -164)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1kaap")
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+
+[node name="LeftWall" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(-793, -244)
+shape = SubResource("RectangleShape2D_e4aly")
+
+[node name="DoorManager" type="Node2D" parent="."]
+script = ExtResource("8_fkj5c")
+entrance_up = Vector2(0, 10)
+entrance_down = Vector2(0, 10)
+entrance_left = Vector2(0, 10)
+entrance_right = Vector2(450, 10)
+
+[node name="LeftEntrance" type="Node2D" parent="DoorManager"]
+position = Vector2(0, 10)
+
+[node name="RightEntrance" type="Node2D" parent="DoorManager"]
+position = Vector2(450, 10)
+
+[node name="Rock1" parent="." instance=ExtResource("9_r3ge0")]
+position = Vector2(754, 20)
+scale = Vector2(-1, 1)
+
+[node name="Rock2" parent="." instance=ExtResource("10_upkle")]
+position = Vector2(1167, 10)
+
+[node name="PowerAltar" parent="." instance=ExtResource("11_k0lon")]
+z_index = -1
+position = Vector2(0, 10)
+
+[node name="PlayerRespawner" parent="." instance=ExtResource("12_irsh7")]
+position = Vector2(963, -39)
+collision_layer = 0
+collision_mask = 4
+respawn_point = Vector2(450, 10)
+
+[node name="Rock3" type="Sprite2D" parent="."]
+position = Vector2(350, 20)
+rotation = 2.01453
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("13_60gjn")
+
+[node name="Player2" parent="." instance=ExtResource("16_gpxve")]
+position = Vector2(-3, -1)
+
+[node name="Camera2D" type="Camera2D" parent="Player2"]
+position = Vector2(3, -44)
+zoom = Vector2(0.9, 0.9)
+limit_left = -680
+limit_top = -670
+limit_bottom = 100
+
+[node name="FlashLight" type="PointLight2D" parent="Player2"]
+position = Vector2(0, -55)
+scale = Vector2(40, 40)
+blend_mode = 2
+range_layer_min = -100
+range_layer_max = 100
+texture = SubResource("GradientTexture2D_m1oav")
+
+[node name="PlayerUI" parent="." instance=ExtResource("17_xevsh")]

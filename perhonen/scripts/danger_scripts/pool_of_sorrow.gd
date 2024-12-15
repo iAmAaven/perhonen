@@ -8,7 +8,7 @@ extends Area2D
 
 func _on_body_entered(body):
 	if body.is_in_group("Player"):
-		body.take_damage(5, true)
+		body.take_damage()
 		if body.is_dead == false:
 			if PlayerTracker.last_door_entered == "Left":
 				body.position = respawn_point_right

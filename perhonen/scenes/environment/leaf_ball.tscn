@@ -1,0 +1,92 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcexmbnnt3hme"]
+
+[ext_resource type="Texture2D" uid="uid://ima55qipib0d" path="res://assets/sprites/environment/leaf_1.png" id="1_x03ue"]
+[ext_resource type="Texture2D" uid="uid://dyu1cpa2astmt" path="res://assets/sprites/environment/leaf_2.png" id="2_r23w1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g7nsx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_x03ue")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aysm7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_r23w1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LeafBall" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [-612.0]
+
+[node name="Leaf1_1" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf1_2" type="AnimatedSprite2D" parent="."]
+position = Vector2(151, -37)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf1_3" type="AnimatedSprite2D" parent="."]
+position = Vector2(262, -135)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf1_4" type="AnimatedSprite2D" parent="."]
+position = Vector2(303, -265)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf1_5" type="AnimatedSprite2D" parent="."]
+position = Vector2(258, -394)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf1_6" type="AnimatedSprite2D" parent="."]
+position = Vector2(144, -488)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf1_7" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -527)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf1_8" type="AnimatedSprite2D" parent="."]
+position = Vector2(-121, -491)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf1_9" type="AnimatedSprite2D" parent="."]
+position = Vector2(-219, -389)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf1_10" type="AnimatedSprite2D" parent="."]
+position = Vector2(-261, -261)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf1_11" type="AnimatedSprite2D" parent="."]
+position = Vector2(-237, -137)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf1_12" type="AnimatedSprite2D" parent="."]
+position = Vector2(-135, -41)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_g7nsx")
+
+[node name="Leaf2_1" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_aysm7")

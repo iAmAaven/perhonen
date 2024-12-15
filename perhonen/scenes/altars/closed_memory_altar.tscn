@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=3 uid="uid://dvms1wxd8o1yx"]
+
+[ext_resource type="Texture2D" uid="uid://ccu3nwcnwvhuu" path="res://assets/sprites/environment/loreAltar.png" id="2_dumd1"]
+[ext_resource type="Texture2D" uid="uid://cxdjdr1ghtq1v" path="res://assets/sprites/environment/loreBook.png" id="3_c2axw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xgf7x"]
+size = Vector2(64, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7qg7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dumd1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ur7i5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_c2axw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_36vnl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookGraphics:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -200)]
+}
+
+[sub_resource type="Animation" id="Animation_0vmdi"]
+resource_name = "hover"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookGraphics:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -200), Vector2(0, -225), Vector2(0, -200)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ni4qb"]
+_data = {
+"RESET": SubResource("Animation_36vnl"),
+"hover": SubResource("Animation_0vmdi")
+}
+
+[node name="ClosedMemoryAltar" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -36)
+shape = SubResource("RectangleShape2D_xgf7x")
+one_way_collision = true
+
+[node name="AltarGraphics" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -200)
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_7qg7s")
+
+[node name="BookGraphics" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -200)
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_ur7i5")
+
+[node name="BookHover" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ni4qb")
+}
+autoplay = "hover"

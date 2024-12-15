@@ -12,7 +12,7 @@ func _ready():
 func _on_body_entered(body):
 	if scene_to_load != null and body.is_in_group("Player"):
 		PlayerTracker.last_door_entered = door_location
-		PlayerTracker.can_move = false
+		PlayerTracker.able_to_move = false
 		Fades.play_animation("fade_in")
 		
 		timer.start(1)

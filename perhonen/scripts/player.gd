@@ -1,124 +1,131 @@
 extends CharacterBody2D
 
-
 @export var move_speed = 600.0
 @export var jump_velocity = -1200.0
-@export var attack_rate = 0.25
+
 
 @onready var graphics = $AnimatedSprite2D
 @onready var attack_area = $AttackArea
 @onready var down_attack_area = $DownAttackArea
 @onready var up_attack_area = $UpAttackArea
-@onready var ground_detect = $GroundDetect
 @onready var timer = $Timer
 
+var move_direction
 var jump_cancelled = false
 var going_right = true
+var is_attacking = false
 var is_attacking_to_side = false
 var is_attacking_up = false
-var is_attacking = false
-var getting_knockback = false
-var is_pogo = false
-var direction = 1
-var is_hurting = false
 var is_jumping = false
+var is_pogo = false
+var is_hurting = false
 var is_dead = false
-
+var getting_knockback = false
+var direction = 1
+var coyote_time = 0.1
+var coyote_time_counter = 0.0
 var knockback_direction: Vector2
-
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+var ui
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var friend = preload("res://scenes/friend.tscn")
-var ui
-
 
 func _ready():
 	ui = get_tree().get_first_node_in_group("UI")
 	attack_area.monitoring = false
-	PlayerTracker.can_move = true
-	timer.start(0.9)
+	PlayerTracker.able_to_move = true
+	timer.start(0.1)
 	await timer.timeout
 	spawn_friends()
 
 func _physics_process(delta):
 	if is_dead:
 		return
-	if !PlayerTracker.can_move:
+	if !PlayerTracker.able_to_move:
 		velocity.x = 0
 		return
 	
-	handle_movement()
+	handle_movement(delta)
 	handle_attacking()
 	handle_jumping(delta)
 
 
-func handle_movement():
-	var move_direction = Input.get_axis("move_l", "move_r")
-	
-	if !is_attacking_to_side and !is_attacking_up:
-		if !getting_knockback:
-			if move_direction:
-				velocity.x = move_direction * move_speed
-			else:
-				velocity.x = move_toward(velocity.x, 0, 60)
-		
-			if move_direction > 0:
-				direction = 1
-				attack_area.scale.x = 1
-			elif move_direction < 0:
-				direction = -1
-				attack_area.scale.x = -1
-		
-		if move_direction < 0:
-			going_right = false
-			if !is_jumping:
-				graphics.play("run_L")
-		elif move_direction > 0:
-			going_right = true
-			if !is_jumping:
-				graphics.play("run_R")
-		else:
-			if going_right:
-				if !is_jumping:
-					graphics.play("idle_R")
-				if !is_attacking_to_side:
-					attack_area.scale.x = 1
-			else:
-				if !is_jumping:
-					graphics.play("idle_L")
-				if !is_attacking_to_side:
-					attack_area.scale.x = -1
+func update_coyote_time(delta):
+	if is_on_floor():
+		coyote_time_counter = coyote_time
 	else:
+		coyote_time_counter -= delta
+
+
+func handle_movement(delta):
+	update_coyote_time(delta)
+	
+	move_direction = Input.get_axis("move_l", "move_r")
+	if is_attacking or getting_knockback:
 		velocity.x = 0
+		move_and_slide()
+		return
+	
+	update_direction()
+	update_animation()
+	
+	if move_direction:
+		velocity.x = move_direction * move_speed
+	else:
+		velocity.x = move_toward(velocity.x, 0, 60)
 	
 	
 	move_and_slide()
 
 
-func handle_jumping(delta):
-	if not is_on_floor():
-		if is_jumping and !is_attacking:
-			if going_right:
-				graphics.play("jump_R")
-			else:
-				graphics.play("jump_L")
-		if jump_cancelled and velocity.y < 0 and !is_pogo:
-			velocity.y += gravity * delta * 6
+func update_direction():
+	if move_direction > 0:
+		direction = 1
+		attack_area.scale.x = 1
+		going_right = true
+	elif move_direction < 0:
+		direction = -1
+		attack_area.scale.x = -1
+		going_right = false
+
+
+func update_animation():
+	if !is_jumping:
+		if move_direction:
+			if going_right: graphics.play("run_R")
+			else: graphics.play("run_L")
 		else:
-			velocity.y += gravity * delta * 3
-			if Input.is_action_just_released("jump") and velocity.y < 0:
-				jump_cancelled = true
+			if going_right: graphics.play("idle_R")
+			else: graphics.play("idle_L")
 	else:
-		is_jumping = false
-		is_pogo = false
-		jump_cancelled = false
+		if going_right: graphics.play("jump_R")
+		else: graphics.play("jump_L")
+
+
+func handle_jumping(delta):
+	if is_on_floor():
+		reset_jump_state()
+	
+	if coyote_time_counter > 0.0 and !is_jumping:
 		if Input.is_action_just_pressed("jump") and !is_attacking:
-			if going_right and !is_attacking:
-				graphics.play("jump_R")
-			elif !going_right and !is_attacking:
-				graphics.play("jump_L")
-			velocity.y = jump_velocity
-			is_jumping = true
+			start_jump()
+	
+	if jump_cancelled and velocity.y < 0 and !is_pogo:
+		velocity.y += gravity * delta * 6
+	else:
+		velocity.y += gravity * delta * 3
+		if Input.is_action_just_released("jump") and velocity.y < 0:
+			jump_cancelled = true
+
+
+func reset_jump_state():
+	is_jumping = false
+	is_pogo = false
+	jump_cancelled = false
+
+
+func start_jump():
+	velocity.y = jump_velocity
+	is_jumping = true
 
 
 func handle_attacking():
@@ -132,18 +139,13 @@ func handle_attacking():
 
 
 func attack():
-	print("Attacked")
-	is_attacking_to_side = true
 	is_attacking = true
-	
-	if going_right:
-		graphics.play("attack_R")
-	else:
-		graphics.play("attack_L")
+	is_attacking_to_side = true
+	if going_right: graphics.play("attack_R")
+	else: graphics.play("attack_L")
 	
 	timer.start(0.33)
 	await timer.timeout
-	take_damage(1, false)
 	attack_area.set_deferred("monitoring", true)
 	
 	timer.start(0.33)
@@ -157,8 +159,6 @@ func attack():
 
 
 func attack_down():
-	print("Attacked down")
-	take_damage(1, false)
 	is_attacking = true
 	down_attack_area.set_deferred("monitoring", true)
 	
@@ -168,9 +168,8 @@ func attack_down():
 	is_attacking = false
 	down_attack_area.set_deferred("monitoring", false)
 
+
 func attack_up():
-	print("Attacked up")
-	take_damage(1, false)
 	is_attacking = true
 	is_attacking_up = true
 	up_attack_area.set_deferred("monitoring", true)
@@ -198,62 +197,59 @@ func knockback(knockback_dir):
 	getting_knockback = false
 
 
-func take_damage(damage_to_take, play_anim):
-	if !is_hurting and PlayerTracker.can_move:
-		if play_anim:
-			$HurtAnimation.play("hurt")
-		is_hurting = true
-		PlayerTracker.health -= damage_to_take
-		ui.update_health()
-		print("Player health: " + str(PlayerTracker.health))
-		if PlayerTracker.health <= 0:
-			death()
-		
-		timer.start(0.25)
-		await timer.timeout
-		is_hurting = false
+func take_damage():
+	if is_hurting or !PlayerTracker.able_to_move:
+		return
+	
+	$HurtAnimation.play("hurt")
+	is_hurting = true
+	PlayerTracker.health -= 1
+	ui.update_health()
+	print("Player health: %s" % PlayerTracker.health)
+	
+	if PlayerTracker.health <= 0:
+		death()
+	
+	timer.start(0.25)
+	await timer.timeout
+	is_hurting = false
 
 
 func death():
 	is_dead = true
 	velocity = Vector2.ZERO
+	graphics.play("idle_R")
 	PlayerTracker.last_door_entered = "Down"
 	PlayerTracker.health = PlayerTracker.max_health
+	ui.update_health()
+	
+	print_debug("Player died. Add death animation and respawning...")
 	
 	timer.start(0.5)
 	await timer.timeout
 	
-	if PlayerTracker.last_checkpoint == "":
-		get_tree().change_scene_to_file("res://scenes/phase1/phase1_start.tscn")
-	else:
-		get_tree().change_scene_to_file(PlayerTracker.last_checkpoint)
+	is_dead = false
 
 
 func spawn_friends():
 	if PlayerTracker.player_damage > 1:
 		for n in PlayerTracker.player_damage - 1:
 			var instance = friend.instantiate()
-			if instance != null:
-				instance.position = position
-				get_tree().current_scene.call_deferred("add_child", instance)
+			instance.position = position
+			get_tree().current_scene.call_deferred("add_child", instance)
 
 
 func _on_attack_area_body_entered(body):
 	if body.is_in_group("Enemy"):
-		body.take_damage(PlayerTracker.player_damage + 1)
-		#knockback(-direction)
+		body.take_damage(PlayerTracker.player_damage)
 
 
 func _on_down_attack_area_body_entered(body):
-	if body.is_in_group("Enemy"):
+	if body.is_in_group("Enemy") or body.is_in_group("SolidDanger"):
 		body.take_damage(PlayerTracker.player_damage)
 		down_attack_area.set_deferred("monitoring", false)
 		velocity.y = jump_velocity / 2
 		is_pogo = true
-	if body.is_in_group("SolidDanger"):
-		velocity.y = jump_velocity / 2
-		is_pogo = true
-		down_attack_area.set_deferred("monitoring", false)
 
 
 func _on_up_attack_area_body_entered(body):

@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="wild_jam_72"
+config/name="Perhonen"
 run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
