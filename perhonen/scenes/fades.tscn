@@ -66,10 +66,10 @@ tracks/0/path = NodePath("Fades/FadeAnimations/GrayBg1:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.2, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -103,9 +103,8 @@ libraries = {
 autoplay = "fade_out"
 
 [node name="GrayBg1" type="Sprite2D" parent="FadeAnimations"]
-visible = false
 modulate = Color(0, 0, 0, 1)
 z_index = 100
 position = Vector2(0, -503)
-scale = Vector2(3.74686, 4.15123)
+scale = Vector2(7, 7)
 texture = ExtResource("1_ub8or")

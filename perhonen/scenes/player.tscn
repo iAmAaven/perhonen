@@ -405,7 +405,7 @@ z_index = 5
 collision_layer = 4
 script = ExtResource("1_icd3r")
 move_speed = 400.0
-attack_rate = 1.0
+jump_velocity = -1250.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -64)
@@ -415,8 +415,10 @@ shape = SubResource("CapsuleShape2D_8rvb3")
 position = Vector2(3, -75)
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_t56gy")
-animation = &"run_R"
+animation = &"idle_R"
 autoplay = "idle_R"
+frame = 3
+frame_progress = 0.0849792
 
 [node name="AttackArea" type="Area2D" parent="."]
 position = Vector2(0, -55)
@@ -446,13 +448,6 @@ monitoring = false
 position = Vector2(0, -149.25)
 shape = SubResource("RectangleShape2D_vrp0d")
 
-[node name="GroundDetect" type="RayCast2D" parent="."]
-target_position = Vector2(0, 20)
-
-[node name="GhostJumpTimer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
 [node name="HurtAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_3cfpp")
@@ -461,6 +456,7 @@ autoplay = "normal"
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+autostart = true
 
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
 [connection signal="body_entered" from="DownAttackArea" to="." method="_on_down_attack_area_body_entered"]

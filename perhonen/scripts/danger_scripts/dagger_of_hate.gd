@@ -14,7 +14,7 @@ func _physics_process(delta):
 
 func _on_hit_collider_body_entered(body):
 	if body.is_in_group("Player") and hit_collider.monitoring:
-		body.take_damage(5, true)
+		body.take_damage()
 		queue_free()
 	else:
 		hit_collider.set_deferred("monitoring", false)

@@ -1,69 +1,28 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvblnc4jpgg38"]
+[gd_scene load_steps=19 format=3 uid="uid://dvblnc4jpgg38"]
 
 [ext_resource type="Script" path="res://scripts/player_ui.gd" id="1_bol4f"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a3nt3"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p6nqt"]
-bg_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4j4ku"]
-bg_color = Color(0.729412, 0.729412, 0.729412, 1)
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+[ext_resource type="Texture2D" uid="uid://dlr18qrd6pec8" path="res://assets/sprites/ui/health_ui/1hp.png" id="2_yispi"]
+[ext_resource type="Texture2D" uid="uid://hfjjahyo08vo" path="res://assets/sprites/ui/health_ui/1hp_damaged.png" id="3_4tu16"]
+[ext_resource type="Texture2D" uid="uid://d2hd3yfpx3cvo" path="res://assets/sprites/ui/health_ui/2hp.png" id="4_4ey24"]
+[ext_resource type="Texture2D" uid="uid://cwbjgnv6dq08y" path="res://assets/sprites/ui/health_ui/2hp_1damaged.png" id="5_qtstg"]
+[ext_resource type="Texture2D" uid="uid://dfvdkdjuenh6x" path="res://assets/sprites/ui/health_ui/2hp_2damaged.png" id="6_qkkqb"]
+[ext_resource type="Texture2D" uid="uid://dna01m85ce4vh" path="res://assets/sprites/ui/health_ui/3hp.png" id="7_6b0y3"]
+[ext_resource type="Texture2D" uid="uid://bd3ewhwwhos5x" path="res://assets/sprites/ui/health_ui/3hp_1damaged.png" id="8_wrc2d"]
+[ext_resource type="Texture2D" uid="uid://cwvpphn4pc1vg" path="res://assets/sprites/ui/health_ui/3hp_2damaged.png" id="9_f6dn4"]
+[ext_resource type="Texture2D" uid="uid://dqs1g4rxfyxu8" path="res://assets/sprites/ui/health_ui/3hp_3damaged.png" id="10_yxlbg"]
+[ext_resource type="Texture2D" uid="uid://dvqf30iinx6qf" path="res://assets/sprites/ui/health_ui/4hp.png" id="11_78g6h"]
+[ext_resource type="Texture2D" uid="uid://bnv623hqfwfin" path="res://assets/sprites/ui/health_ui/4hp_1damaged.png" id="12_wxfys"]
+[ext_resource type="Texture2D" uid="uid://c0rsatwchfv1c" path="res://assets/sprites/ui/health_ui/4hp_2damaged.png" id="13_o1kgg"]
+[ext_resource type="Texture2D" uid="uid://doeuw6wt2qww5" path="res://assets/sprites/ui/health_ui/4hp_3damaged.png" id="14_vww1e"]
+[ext_resource type="Texture2D" uid="uid://rkjre0jxtvrb" path="res://assets/sprites/ui/health_ui/4hp_4damaged.png" id="15_2nmh5"]
 
 [sub_resource type="Animation" id="Animation_p0g26"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HealthBar:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_8pnsa"]
 resource_name = "hurt"
 length = 0.25
 step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HealthBar:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(0.295867, 0.295866, 0.295866, 1), Color(1, 1, 1, 1), Color(0.295866, 0.295866, 0.295866, 1), Color(1, 1, 1, 1), Color(0.295866, 0.295866, 0.295866, 1), Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ql54f"]
 _data = {
@@ -73,27 +32,20 @@ _data = {
 
 [node name="PlayerUI" type="CanvasLayer" groups=["UI"]]
 script = ExtResource("1_bol4f")
-
-[node name="Panel" type="Panel" parent="."]
-visible = false
-offset_left = 27.0
-offset_top = 26.0
-offset_right = 67.0
-offset_bottom = 66.0
-scale = Vector2(1.75, 1.75)
-theme_override_styles/panel = SubResource("StyleBoxFlat_a3nt3")
-
-[node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = 25.0
-offset_top = 25.0
-offset_right = 331.0
-offset_bottom = 77.0
-theme_override_styles/background = SubResource("StyleBoxFlat_p6nqt")
-theme_override_styles/fill = SubResource("StyleBoxFlat_4j4ku")
-value = 100.0
-show_percentage = false
+one_hp = [ExtResource("2_yispi"), ExtResource("3_4tu16")]
+two_hp = [ExtResource("4_4ey24"), ExtResource("5_qtstg"), ExtResource("6_qkkqb")]
+three_hp = [ExtResource("7_6b0y3"), ExtResource("8_wrc2d"), ExtResource("9_f6dn4"), ExtResource("10_yxlbg")]
+four_hp = [ExtResource("11_78g6h"), ExtResource("12_wxfys"), ExtResource("13_o1kgg"), ExtResource("14_vww1e"), ExtResource("15_2nmh5")]
 
 [node name="DamageAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_ql54f")
 }
+
+[node name="HP" type="TextureRect" parent="."]
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 125.0
+offset_bottom = 125.0
+texture = ExtResource("2_yispi")
+expand_mode = 1

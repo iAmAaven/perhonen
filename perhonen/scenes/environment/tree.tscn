@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr4g8bqityxhp"]
+
+[ext_resource type="Texture2D" uid="uid://dcjykx0md5agc" path="res://assets/sprites/environment/tree_1.png" id="1_gq3kn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_et7wo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gq3kn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Tree" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -450)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_et7wo")

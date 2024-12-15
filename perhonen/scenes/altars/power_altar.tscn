@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpxanw4yh43xx"]
+
+[ext_resource type="Texture2D" uid="uid://s8h6psue7y44" path="res://assets/sprites/environment/altar.png" id="1_vgx2n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ngdi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vgx2n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dtidm"]
+size = Vector2(374, 6)
+
+[node name="PowerAltar" type="StaticBody2D"]
+position = Vector2(383, 10)
+
+[node name="Graphics" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -250)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_6ngdi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -40)
+shape = SubResource("RectangleShape2D_dtidm")
+one_way_collision = true
